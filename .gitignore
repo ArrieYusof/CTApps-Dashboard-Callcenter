@@ -1,0 +1,89 @@
+# ---------------------------
+# Python cache & bytecode
+# ---------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+.eggs/
+
+# ---------------------------
+# Virtual environments
+# ---------------------------
+venv/
+ENV/
+env/
+.venv/
+
+# ---------------------------
+# Build / Distribution
+# ---------------------------
+build/
+develop-eggs/
+dist/
+downloads/
+wheels/
+*.manifest
+*.spec
+pip-wheel-metadata/
+
+# ---------------------------
+# Jupyter / IPython
+# ---------------------------
+.ipynb_checkpoints/
+*.ipynb
+
+# ---------------------------
+# Logs & debug
+# ---------------------------
+*.log
+*.pot
+*.mo
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# ---------------------------
+# Dash / Plotly related
+# ---------------------------
+# Dash generates assets if using external build process
+assets/*.map
+assets/*.gz
+assets/*.cache
+# If you generate compiled assets, ignore them
+assets/dist/
+
+# ---------------------------
+# OS-specific
+# ---------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------
+# IDE / Editor
+# ---------------------------
+.vscode/
+.idea/
+*.iml
+
+# ---------------------------
+# Testing
+# ---------------------------
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.cache/
+
+# ---------------------------
+# Environment variables / Secrets
+# ---------------------------
+.env
+.env.local
+.env.*.local
+

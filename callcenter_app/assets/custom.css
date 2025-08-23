@@ -1,0 +1,490 @@
+/* Remove all margin and padding from KPI cards to eliminate horizontal gap */
+.kpi-card, .premium-card {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+/* Version: 0.2
+   Last Modified: 2025-08-23
+   Changes: Premium dark theme with modern color scheme and glass-morphism effects */
+
+/* Global Reset and Full Viewport Control */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    overflow: visible !important;
+}
+
+#_dash-app-content {
+    height: 100vh !important;
+    width: 100vw !important;
+    overflow: visible !important;
+}
+
+/* Main wrapper - absolute positioning */
+.main-content-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+:root {
+    --primary-bg: #0B1426;
+    --secondary-bg: #1A1D29;
+    --card-bg: rgba(26, 29, 41, 0.8);
+    --accent-blue: #00D4FF;
+    --accent-green: #00FF88;
+    --accent-amber: #FFB800;
+    --accent-red: #FF3366;
+    --text-primary: #FFFFFF;
+    --text-secondary: #B0B8C8;
+    --border-subtle: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%) !important;
+    color: var(--text-primary) !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    overflow-x: hidden;
+}
+
+/* Ensure Dash container takes full space */
+#react-entry-point {
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+._dash-loading {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Responsive Full-Screen Container */
+.dashboard-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: visible !important;
+    position: relative;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Premium Glass-morphism Cards */
+.premium-card {
+    background: var(--card-bg) !important;
+    overflow: visible !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid var(--border-subtle) !important;
+    border-radius: 16px !important;
+    color: var(--text-primary) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    height: 100% !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 0 !important; /* Allow full shrinking */
+    box-sizing: border-box !important;
+    display: flex !important; /* Make it a flex container */
+    flex-direction: column !important;
+}
+
+.premium-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 16px 48px rgba(0, 212, 255, 0.15) !important;
+    border-color: rgba(0, 212, 255, 0.3) !important;
+}
+
+/* KPI Card Content */
+.kpi-card-content {
+    display: flex;
+    overflow: visible !important;
+    flex-direction: column;
+    height: 100%;
+    padding: clamp(4px, 0.8vw, 8px);
+    gap: 0px;
+}
+
+.kpi-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.kpi-metric {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* Left column for KPI text (1/3 width) */
+.kpi-text-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 8px;
+    min-width: 0; /* Allow shrinking */
+}
+
+/* Right column for chart (2/3 width) */
+.kpi-chart-section {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0; /* Allow shrinking */
+}
+
+/* KPI Trend indicators */
+.kpi-trend {
+    font-size: clamp(0.5rem, 0.6vw, 0.6rem);
+    font-weight: 600;
+    padding: 1px 3px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.trend-positive {
+    color: var(--accent-green);
+}
+
+.trend-negative {
+    color: var(--accent-red);
+}
+
+.trend-neutral {
+    color: var(--accent-amber);
+}
+
+/* Chart containers */
+.chart-container {
+    width: 100%;
+    min-height: 0;
+    margin-top: 0;
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+/* Remove forced white fill for chart text so Plotly hover labels can use correct color */
+.chart-container svg text {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    /* fill: #FFFFFF !important; */
+}
+
+/* Hide modebar/toolbar at top-right */
+.modebar,
+.modebar-container,
+.plotly .modebar,
+.js-plotly-plot .modebar,
+.chart-container .modebar {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+/* Target potential left-side document icons specifically - but preserve data labels */
+.chart-container svg a[href*="plotly"],
+.chart-container g[class*="modebar"],
+.chart-container g[class*="toolbar"],
+.chart-container path[d*="M12"],
+.chart-container path[fill="currentColor"],
+
+/* Hide any elements positioned on the left side */
+
+/* Force hide any icons or symbols in charts */
+.chart-container svg use,
+.chart-container svg symbol,
+.chart-container svg image,
+.chart-container svg foreignObject {
+    display: none !important;
+}
+
+/* Ensure main chart elements remain visible */
+.chart-container svg,
+.chart-container .svg-container,
+.chart-container .plot-container,
+.chart-container .js-plotly-plot {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Add a mask overlay to cover any left-side artifacts */
+.chart-container::before {
+    /* Removed left-side mask overlay to prevent clipping of chart labels */
+}
+
+/* More Details Button */
+/* More Details Button */
+.more-details-btn {
+    padding: 1px 4px;
+    font-size: clamp(0.45rem, 0.55vw, 0.55rem);
+    background: rgba(74, 144, 226, 0.15);
+    color: #4A90E2;
+    border: 1px solid rgba(74, 144, 226, 0.3);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.more-details-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4) !important;
+}
+
+/* Alert Strip */
+.alert-strip {
+    background: linear-gradient(90deg, 
+        rgba(255, 51, 102, 0.9) 0%, 
+        rgba(255, 184, 0, 0.9) 50%, 
+        rgba(255, 51, 102, 0.9) 100%) !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 6px 16px !important; /* Reduced padding */
+    margin: 0 12px 8px 12px !important; /* Reduced margins */
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0; /* Don't let it shrink */
+    height: auto; /* Let content determine height */
+}
+
+.alert-strip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: alertShimmer 3s infinite;
+}
+
+@keyframes alertShimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+@keyframes alertPulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; }
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: white;
+}
+
+/* Header */
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px; /* Even more compact */
+    height: clamp(50px, 6vh, 70px); /* Smaller header */
+    flex-shrink: 0; /* Don't shrink */
+    background: rgba(26, 29, 41, 0.3);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.hamburger-btn {
+    background: none !important;
+    border: none !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.hamburger-btn:hover {
+    background: var(--card-bg) !important;
+}
+
+.hamburger-line {
+    width: 30px;
+    height: 3px;
+    background: var(--text-primary);
+    margin: 6px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(20px) !important;
+    border-right: 1px solid var(--border-subtle) !important;
+}
+
+.nav-link {
+    color: var(--text-secondary) !important;
+    padding: 16px 24px !important;
+    border-radius: 8px !important;
+    margin: 8px 0 !important;
+    transition: all 0.3s ease !important;
+    font-weight: 500 !important;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: linear-gradient(135deg, var(--accent-blue), #0099CC) !important;
+    color: white !important;
+}
+
+/* Dashboard Grid - Absolute height control */
+.dashboard-grid {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 100vw;
+    height: calc(100vh - 60px);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+/* First two rows: 3 cards per row */
+.dashboard-grid .kpi-card {
+    background: #1A1D29;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    color: #fff;
+    padding: 16px;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Last row: 2 cards, first 1/3, second 2/3 */
+.dashboard-grid .alert-card {
+    grid-column: 1 / span 1;
+    grid-row: 3;
+    background: #23263A;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    color: #fff;
+    padding: 16px;
+    min-width: 0;
+    min-height: 0;
+    background: rgba(26, 29, 41, 0.7);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,212,255,0.12), 0 2px 16px rgba(0,0,0,0.12);
+    backdrop-filter: blur(12px);
+    border: 2px solid var(--accent-blue);
+    padding: 20px;
+    position: relative;
+    transition: box-shadow 0.3s, border-color 0.3s;
+    overflow: hidden;
+}
+.dashboard-grid .alert-card:hover {
+    box-shadow: 0 16px 48px rgba(0,212,255,0.25);
+    border-color: var(--accent-green);
+}
+.alert-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    margin-bottom: 14px;
+    text-shadow: 0 2px 8px rgba(0,212,255,0.12);
+}
+.alert-list {
+    padding-left: 0;
+    list-style: none;
+    margin: 0;
+}
+.alert-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border-left: 4px solid transparent;
+    padding-left: 0px;
+    transition: border-color 0.3s;
+}
+.alert-critical {
+    color: var(--accent-red);
+    border-color: var(--accent-red);
+}
+.alert-warning {
+    color: var(--accent-amber);
+    border-color: var(--accent-amber);
+}
+.alert-info {
+    color: var(--accent-blue);
+    border-color: var(--accent-blue);
+}
+.alert-list li span {
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+.alert-list li span:first-child {
+    margin-right: 4px;
+}
+.alert-list li span:first-child {
+    font-size: 1.3rem;
+    margin-right: 10px;
+    filter: drop-shadow(0 2px 4px rgba(0,212,255,0.18));
+    animation: alert-icon-pop 0.6s cubic-bezier(.68,-0.55,.27,1.55) both;
+}
+@keyframes alert-icon-pop {
+    0% { transform: scale(0.7); opacity: 0; }
+    80% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+/* Emphasize empty wide card in the bottom row */
+.wide-card.orange-border {
+    border: 2.5px solid var(--accent-amber);
+    background: rgba(26, 29, 41, 0.5);
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(255,184,0,0.10);
+    grid-column: 2 / span 2;
+}
