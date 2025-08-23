@@ -1,3 +1,117 @@
+/* Sidebar Wow Upgrade */
+.sidebar {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(24px) !important;
+    border-right: 2px solid var(--accent-blue) !important;
+    box-shadow: 0 0 32px 0 rgba(0,212,255,0.12) !important;
+    width: 280px !important;
+    padding: 0 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100vh !important;
+    z-index: 1000;
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.sidebar-accent-bar {
+    width: 8px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(180deg, #00D4FF 0%, #00FF88 100%);
+    box-shadow: 0 0 24px 4px #00D4FF44;
+    z-index: 1;
+    border-radius: 0 12px 12px 0;
+}
+.sidebar-profile {
+    display: flex;
+    align-items: center;
+    padding: 32px 32px 16px 24px;
+    position: relative;
+    z-index: 2;
+}
+.sidebar-avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(0,212,255,0.18);
+    border: 2px solid var(--accent-blue);
+    object-fit: cover;
+    background: #23263A;
+}
+.sidebar-username {
+    color: var(--accent-blue);
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+.sidebar-role {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+.sidebar-nav-wrapper {
+    flex: 1;
+    padding: 8px 0 0 0;
+    z-index: 2;
+}
+.sidebar-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.98rem;
+    font-weight: 600;
+    padding: 7px 20px 7px 24px;
+    border-radius: 8px;
+    transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+    position: relative;
+}
+.sidebar-icon {
+    font-size: 1.1rem;
+    transition: transform 0.3s, color 0.3s;
+    filter: drop-shadow(0 2px 8px #00D4FF44);
+}
+.sidebar-label {
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.nav-link.active .sidebar-nav-item,
+.nav-link:hover .sidebar-nav-item {
+    background: linear-gradient(90deg, #00D4FF 0%, #00FF88 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 0 16px 2px #00D4FF44;
+}
+.nav-link.active .sidebar-icon,
+.nav-link:hover .sidebar-icon {
+    color: #fff !important;
+    transform: scale(1.18) rotate(-8deg);
+    filter: drop-shadow(0 0 8px #00FF88);
+}
+.sidebar-version-wrapper {
+    position: absolute;
+    bottom: 64px;
+    left: 0;
+    right: 0;
+    padding: 0 32px;
+    z-index: 2;
+    text-align: center;
+}
+.sidebar-version {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
+}
+.sidebar-premium {
+    color: var(--accent-blue);
+    font-size: 0.8rem;
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
 /* Remove all margin and padding from KPI cards to eliminate horizontal gap */
 .kpi-card, .premium-card {
     margin: 0 !important;
@@ -23,6 +137,13 @@ html, body {
     overflow: visible !important;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
 #_dash-app-content {
     height: 100vh !important;
     width: 100vw !important;
@@ -31,15 +152,29 @@ html, body {
 
 /* Main wrapper - absolute positioning */
 .main-content-wrapper {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 35px;
     left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
+    width: 100vw;
+    height: calc(100vh - 35px - 5px); /* header + 5px bottom gap */
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 5px;
+    box-sizing: border-box;
+    background: transparent;
 }
 
+.main-content-wrapper > *,
+.main-content-wrapper > * > *,
+.kpi-card,
+.kpi-card > * {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Color and Background Variables */
 :root {
     --primary-bg: #0B1426;
     --secondary-bg: #1A1D29;
@@ -53,17 +188,7 @@ html, body {
     --border-subtle: rgba(255, 255, 255, 0.1);
 }
 
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
+/* Body and Font Styles */
 body {
     background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%) !important;
     color: var(--text-primary) !important;
@@ -329,25 +454,72 @@ body {
     border-bottom: 1px solid var(--border-subtle);
 }
 
-.hamburger-btn {
-    background: none !important;
-    border: none !important;
-    padding: 12px !important;
-    border-radius: 8px !important;
-    transition: all 0.3s ease !important;
-    cursor: pointer !important;
+.header-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: #000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    height: 35px;
+    display: flex;
+    align-items: center;
 }
 
-.hamburger-btn:hover {
-    background: var(--card-bg) !important;
+.header-title {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
-.hamburger-line {
-    width: 30px;
-    height: 3px;
-    background: var(--text-primary);
-    margin: 6px 0;
-    transition: 0.3s;
+.header-page-title {
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: 500;
+    margin-left: auto;
+    align-self: center;
+}
+
+.header-subtitle {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.header-exec-title {
+    margin-left: auto;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.2rem;
+    align-self: flex-end;
+}
+
+/* Burger Menu */
+.burger-menu {
+    background: #000;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 22px;
+    width: 22px;
+}
+
+.burger-line {
+    display: block;
+    width: 14px;
+    height: 2px;
+    margin: 1px 0;
+    background: #fff;
     border-radius: 2px;
 }
 
@@ -356,6 +528,7 @@ body {
     background: var(--card-bg) !important;
     backdrop-filter: blur(20px) !important;
     border-right: 1px solid var(--border-subtle) !important;
+    margin-top: 64px; /* Height of fixed header */
 }
 
 .nav-link {
@@ -375,16 +548,14 @@ body {
 /* Dashboard Grid - Absolute height control */
 .dashboard-grid {
     display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 5px;
     width: 100vw;
-    height: calc(100vh - 60px);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    height: calc(100% - 5px);
     box-sizing: border-box;
+    margin: 5px 0 0 0;
+    padding: 0;
 }
 
 /* First two rows: 3 cards per row */
@@ -399,6 +570,10 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Last row: 2 cards, first 1/3, second 2/3 */

@@ -27,19 +27,51 @@ app.title = "VADS Call Center - Premium Dashboard"
 # Main app layout - Force full viewport usage
 app.layout = html.Div([
     dcc.Store(id='current-page', data='executive'),
+    html.Div(
+        id="main-header",
+        className="header-fixed",
+        children=[
+            html.Div([
+                html.Button(
+                    id="main-header-toggle",
+                    className="burger-menu",
+                    children=[
+                        html.Span(className="burger-line"),
+                        html.Span(className="burger-line"),
+                        html.Span(className="burger-line")
+                    ]
+                ),
+                html.Span(id="header-page-title", className="header-page-title", style={"color": "#fff", "fontWeight": "600", "fontSize": "0.95rem", "marginLeft": "12px"}),
+                html.Span(id="live-monitoring-label", children="LIVE MONITORING", style={
+                    "fontSize": "0.7rem",
+                    "fontWeight": "600",
+                    "color": "var(--accent-green)",
+                    "margin": "0 auto",
+                    "opacity": 0.85,
+                    "animation": "blink 2s infinite",
+                    "display": "none",
+                    "position": "absolute",
+                    "left": "50%",
+                    "transform": "translateX(-50%)"
+                }),
+                html.Span("VADS Call Center", className="header-title", style={"marginLeft": "auto", "color": "#fff", "fontWeight": "600", "fontSize": "1.1rem"})
+            ], style={"display": "flex", "alignItems": "center", "height": "100%", "width": "100%", "padding": "0 24px", "position": "relative"})
+        ]
+    ),
     get_sidebar(hidden=True),
     html.Div(
         id='page-content', 
         children=executive_dashboard_layout,  # Default to executive dashboard
         className='main-content-wrapper',
         style={
-            "height": "100vh",
+            "height": "calc(100vh - 35px - 5px)",
             "width": "100vw",
             "overflow": "hidden",
             "boxSizing": "border-box",
             "position": "fixed",
-            "top": "0",
-            "left": "0"
+            "top": "35px",
+            "left": "0",
+            "marginTop": "0",
         }
     )
 ], style={
@@ -50,10 +82,34 @@ app.layout = html.Div([
     "overflow": "hidden"
 })
 
+# Callback to update header page title
+@app.callback(
+    [Output('header-page-title', 'children'), Output('live-monitoring-label', 'style')],
+    [Input('current-page', 'data')]
+)
+def update_header_page_title(current_page):
+    if current_page == 'executive':
+        return 'Executive Dashboard', {"display": "none"}
+    elif current_page == 'operational':
+        return 'Operational Dashboard', {
+            "fontSize": "0.7rem",
+            "fontWeight": "600",
+            "color": "var(--accent-green)",
+            "margin": "0 auto",
+            "opacity": 0.85,
+            "animation": "blink 2s infinite",
+            "display": "inline",
+            "position": "absolute",
+            "left": "50%",
+            "transform": "translateX(-50%)"
+        }
+    else:
+        return '', {"display": "none"}
+
 # Callback to toggle sidebar
 @app.callback(
     [Output('sidebar', 'style'), Output('page-content', 'style')],
-    [Input('sidebar-toggle', 'n_clicks')],
+    [Input('main-header-toggle', 'n_clicks')],
     [State('sidebar', 'style'), State('page-content', 'style')]
 )
 def toggle_sidebar(n_clicks, sidebar_style, content_style):

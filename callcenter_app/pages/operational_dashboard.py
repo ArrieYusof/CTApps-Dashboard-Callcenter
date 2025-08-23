@@ -170,7 +170,7 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
             xaxis=dict(showgrid=False, showticklabels=True, zeroline=False, color="#fff", tickvals=x_tickvals, ticktext=x_tickvals),
-            yaxis=dict(title="Avg Handle Time (min)", showgrid=False, showticklabels=True, zeroline=False, color="#fff"),
+            yaxis=dict(title="Avg Handle Time", showgrid=False, showticklabels=True, zeroline=False, color="#fff"),
             showlegend=False
         )
     else:
@@ -194,24 +194,44 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
     
     status_class = f"trend-{status}"
     status_icon = "🟢" if status == 'positive' else "🔴" if status == 'negative' else "🟡"
-    
-    return html.Div([
-        html.Div([
-            # Compact header section - all text elements at top
+
+    # Special header layout for wide Agent Performance card
+    if card_id == "agents_wide":
+        return html.Div([
             html.Div([
+                html.Div([
+                    html.P(title, className="kpi-title", style={"marginBottom": "0", "fontWeight": "600", "fontSize": "1.1rem"}),
+                    html.P(value, className="kpi-subtitle", style={"marginLeft": "16px", "fontSize": "1rem", "color": "#FFB800", "fontWeight": "500", "marginBottom": "0"}),
+                    html.Span([
+                        html.Span(status_icon, style={"fontSize": "0.8rem", "marginRight": "4px"}),
+                        html.Span("LIVE", style={"fontSize": "0.95rem", "fontWeight": "600", "color": "#00FF88"})
+                    ], className=f"kpi-trend {status_class}", style={"marginLeft": "18px", "verticalAlign": "middle"})
+                ], style={"display": "flex", "alignItems": "center", "gap": "0.5rem"}),
+                html.Button("View Details", className="more-details-btn", id=f"btn-{card_id}")
+            ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "center", "marginBottom": "2px"}),
+            html.Div([
+                dcc.Graph(
+                    figure=fig,
+                    config={'displayModeBar': False, 'staticPlot': False},
+                    style={"height": "100%", "width": "100%"}
+                )
+            ], className="chart-container")
+        ], className="kpi-card-content wide-kpi-header")
+    else:
+        return html.Div([
+            html.Div([
+                # Compact header section - all text elements at top
                 html.Div([
                     html.P(title, className="kpi-title"),
                     html.H2(value, className="kpi-metric"),
                 ], style={"flex": "1"}),
                 html.Button("View Details", className="more-details-btn", id=f"btn-{card_id}")
             ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "flex-start", "marginBottom": "1px"}),
-            
             # Trend indicator
             html.Div([
                 html.Span(status_icon, style={"fontSize": "0.6rem", "marginRight": "3px"}),
                 html.Span("LIVE" if status == 'positive' else "ALERT" if status == 'negative' else "WATCH")
             ], className=f"kpi-trend {status_class}", style={"marginBottom": "2px"}),
-            
             # Chart section - takes all remaining space
             html.Div([
                 dcc.Graph(
@@ -220,15 +240,19 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
                     style={"height": "100%", "width": "100%"}
                 )
             ], className="chart-container")
-            
         ], className="kpi-card-content")
-    ], className="premium-card grid-item")
+    # ...existing code...
 
 def create_agent_availability_card():
     availability = get_agent_availability()
     labels = list(availability.keys())
     values = list(availability.values())
     colors = ["#00FF88", "#FFB800", "#3388FF"]
+    total_agents = sum(values)
+    metric_text = f"{values[0]} Online / {total_agents} Total"
+    status = "positive" if values[0] / total_agents > 0.7 else "warning" if values[0] / total_agents > 0.4 else "negative"
+    status_class = f"trend-{status}"
+    status_icon = "🟢" if status == 'positive' else "🔴" if status == 'negative' else "🟡"
     fig = go.Figure(go.Pie(
         labels=labels,
         values=values,
@@ -245,107 +269,69 @@ def create_agent_availability_card():
         plot_bgcolor='rgba(0,0,0,0)'
     )
     return html.Div([
-        html.P("Agent Availability", className="kpi-title"),
-        dcc.Graph(figure=fig, config={"displayModeBar": False}, className="kpi-chart"),
-    ], className="kpi-card")
+        html.Div([
+            html.Div([
+                html.P("Agent Availability", className="kpi-title"),
+                html.H2(metric_text, className="kpi-metric"),
+            ], style={"flex": "1"}),
+            html.Button("View Details", className="more-details-btn", id="btn-agent-availability")
+        ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "flex-start", "marginBottom": "1px"}),
+        html.Div([
+            html.Span(status_icon, style={"fontSize": "0.6rem", "marginRight": "3px"}),
+            html.Span("LIVE" if status == 'positive' else "ALERT" if status == 'negative' else "WATCH")
+        ], className=f"kpi-trend {status_class}", style={"marginBottom": "2px"}),
+        html.Div([
+            dcc.Graph(figure=fig, config={"displayModeBar": False}, className="kpi-chart", style={"height": "100%", "width": "100%"})
+        ], className="chart-container")
+    ], className="kpi-card-content")
+    # ...existing code...
 
 # Get operational dummy data
 data = get_operational_data()
 
 operational_dashboard_layout = html.Div([
+    # Dashboard Grid using CSS Grid (match Executive Dashboard)
     html.Div([
-        # Header
+        # First row: 3 KPI
+        html.Div(create_operational_kpi_card("Real-Time Queue Status", "47 calls", "negative", data["queue_status"], "queue"), className="kpi-card"),
+        html.Div(create_agent_availability_card(), className="premium-card grid-item"),
+        html.Div(create_operational_kpi_card("SLA Monitoring", "78.5%", "negative", data["sla_monitoring"], "sla"), className="kpi-card"),
+        # Second row: 3 KPI
+        html.Div(create_operational_kpi_card("Customer Satisfaction", "4.1/5.0", "positive", data["customer_satisfaction"], "csat"), className="kpi-card"),
+        html.Div(create_operational_kpi_card("Call Outcomes", f"{data['call_outcomes'][-1]}% resolved", "positive", [data['call_outcomes'][-1], 100 - data['call_outcomes'][-1]], "outcomes"), className="kpi-card"),
+        html.Div(create_operational_kpi_card("Resource Utilization", f"{data['resource_utilization'][-1]}% active", "neutral", [data['resource_utilization'][-1]], "resources"), className="kpi-card"),
+        # Third row: 1/3 alert card, 2/3 wide orange border card
         html.Div([
-            html.Div([
-                html.Button([
-                    html.Div(className="hamburger-line"),
-                    html.Div(className="hamburger-line"),
-                    html.Div(className="hamburger-line"),
-                ], id="sidebar-toggle", className="hamburger-btn"),
-                html.H1("Operational Dashboard", className="header-title"),
-            ], style={"display": "flex", "alignItems": "center", "gap": "24px"}),
-            html.Div([
-                html.Span("LIVE MONITORING", style={
-                    "fontSize": "0.9rem", 
-                    "color": "var(--accent-green)",
-                    "fontWeight": "600",
-                    "animation": "blink 2s infinite"
-                })
-            ])
-        ], className="dashboard-header"),
-        
-        # Operational KPI Grid
+            html.H3("Operational Alerts", className="alert-title", style={"fontSize": "1.1rem", "marginBottom": "12px"}),
+            html.Ul([
+                html.Li([
+                    html.Span("🚨", style={"marginRight": "8px", "fontSize": "0.9rem"}),
+                    html.Span("Queue 2 SLA BREACH: 18min wait time", className="alert-critical", style={"fontSize": "0.85rem"})
+                ], style={"marginBottom": "6px"}),
+                html.Li([
+                    html.Span("⚠️", style={"marginRight": "8px", "fontSize": "0.9rem"}),
+                    html.Span("3 agents offline - backup needed", className="alert-warning", style={"fontSize": "0.85rem"})
+                ], style={"marginBottom": "6px"}),
+                html.Li([
+                    html.Span("ℹ️", style={"marginRight": "8px", "fontSize": "0.9rem"}),
+                    html.Span("System response time degraded to 2.3s", className="alert-info", style={"fontSize": "0.85rem"})
+                ], style={"marginBottom": "6px"})
+            ], className="alert-list", style={"paddingLeft": "0", "listStyle": "none"})
+        ], className="alert-card"),
         html.Div([
-            # First row: 3 KPI
             create_operational_kpi_card(
-                "Real-Time Queue Status", 
-                "47 calls", 
-                "negative",  # High queue = negative
-                data["queue_status"],
-                "queue"
-            ),
-            create_agent_availability_card(),
-            create_operational_kpi_card(
-                "SLA Monitoring", 
-                "78.5%", 
-                "negative",  # Below target = negative
-                data["sla_monitoring"],
-                "sla"
-            ),
-            # Second row: 2 KPI (remove Agent Performance from here)
-            create_operational_kpi_card(
-                "Customer Satisfaction", 
-                "4.1/5.0", 
+                "Agent Performance", 
+                f"avg {sum(data['agent_performance'])/len(data['agent_performance']):.1f}min", 
                 "positive",
-                data["customer_satisfaction"],
-                "csat"
-            ),
-            create_operational_kpi_card(
-                "Call Outcomes", 
-                f"{data['call_outcomes'][-1]}% resolved", 
-                "positive",
-                [data['call_outcomes'][-1], 100 - data['call_outcomes'][-1]],
-                "outcomes"
-            ),
-            create_operational_kpi_card(
-                "Resource Utilization", 
-                f"{data['resource_utilization'][-1]}% active", 
-                "neutral",  # High but manageable
-                [data['resource_utilization'][-1]],
-                "resources"
-            ),
-            # Third row: 1/3 alert card, 2/3 wide orange border card
-            html.Div([
-                html.H3("Operational Alerts", className="alert-title", style={"fontSize": "1.1rem", "marginBottom": "12px"}),
-                html.Ul([
-                    html.Li([
-                        html.Span("🚨", style={"marginRight": "8px", "fontSize": "0.9rem"}),
-                        html.Span("Queue 2 SLA BREACH: 18min wait time", className="alert-critical", style={"fontSize": "0.85rem"})
-                    ], style={"marginBottom": "6px"}),
-                    html.Li([
-                        html.Span("⚠️", style={"marginRight": "8px", "fontSize": "0.9rem"}),
-                        html.Span("3 agents offline - backup needed", className="alert-warning", style={"fontSize": "0.85rem"})
-                    ], style={"marginBottom": "6px"}),
-                    html.Li([
-                        html.Span("ℹ️", style={"marginRight": "8px", "fontSize": "0.9rem"}),
-                        html.Span("System response time degraded to 2.3s", className="alert-info", style={"fontSize": "0.85rem"})
-                    ], style={"marginBottom": "6px"})
-                ], className="alert-list", style={"paddingLeft": "0", "listStyle": "none"})
-            ], className="alert-card"),
-            html.Div([
-                create_operational_kpi_card(
-                    "Agent Performance", 
-                    f"avg {sum(data['agent_performance'])/len(data['agent_performance']):.1f}min", 
-                    "positive",
-                    data["agent_performance"],
-                    "agents_wide"
-                )
-            ], className="wide-card orange-border"),
-        ], className="dashboard-grid"),
-    ], style={
-        "height": "100vh",
-        "display": "flex",
-        "flexDirection": "column",
-        "overflow": "hidden"
-    })
-], className="dashboard-container")
+                data["agent_performance"],
+                "agents_wide"
+            )
+        ], className="wide-card orange-border"),
+    ], className="dashboard-grid"),
+    # Match executive dashboard style
+], style={
+    "height": "calc(100vh - 35px - 5px)",
+    "display": "flex",
+    "flexDirection": "column",
+    "overflow": "hidden"
+})

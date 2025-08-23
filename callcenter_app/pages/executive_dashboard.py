@@ -338,32 +338,6 @@ def create_alert_card():
 data = get_executive_data()
 
 executive_dashboard_layout = html.Div([
-    # Fixed Header - 60px height
-    html.Div([
-        html.Div([
-            html.Button([
-                html.Div(className="hamburger-line"),
-                html.Div(className="hamburger-line"),
-                html.Div(className="hamburger-line"),
-            ], id="sidebar-toggle", className="hamburger-btn"),
-            html.H1("Executive Dashboard", className="header-title"),
-        ], style={"display": "flex", "alignItems": "center", "gap": "24px"}),
-        html.Div([
-            html.Span("VADS Call Center", style={
-                "fontSize": "0.9rem", 
-                "color": "var(--text-secondary)",
-                "fontWeight": "500"
-            })
-        ])
-    ], className="header-section", style={
-        "height": "60px",
-        "display": "flex",
-        "justifyContent": "space-between",
-        "alignItems": "center",
-        "padding": "0 20px",
-        "background": "var(--primary-bg)",
-        "borderBottom": "1px solid var(--border-subtle)"
-    }),
     # Dashboard Grid using CSS Grid
     html.Div([
         # First row: 3 KPI
@@ -379,7 +353,7 @@ executive_dashboard_layout = html.Div([
         html.Div([], className="wide-card orange-border"),
     ], className="dashboard-grid"),
 ], style={
-    "height": "100vh",
+    "height": "calc(100vh - 35px - 5px)",
     "display": "flex",
     "flexDirection": "column",
     "overflow": "hidden"
