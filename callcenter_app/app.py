@@ -65,13 +65,11 @@ app.layout = html.Div([
         className='main-content-wrapper',
         style={
             "height": "calc(100vh - 35px - 5px)",
-            "width": "100vw",
             "overflow": "hidden",
             "boxSizing": "border-box",
             "position": "fixed",
             "top": "35px",
-            "left": "0",
-            "marginTop": "0",
+            # Remove left and width here; callback will set them
         }
     )
 ], style={
@@ -113,31 +111,53 @@ def update_header_page_title(current_page):
     [State('sidebar', 'style'), State('page-content', 'style')]
 )
 def toggle_sidebar(n_clicks, sidebar_style, content_style):
+    SIDEBAR_WIDTH = 220  # px, match current sidebar width
     if n_clicks is None or n_clicks % 2 == 0:
         # Sidebar hidden, content full width
         s_style = sidebar_style.copy() if sidebar_style else {}
-        s_style['transform'] = 'translateX(-280px)'
-        s_style['zIndex'] = 1000
-        
+        s_style['transform'] = f'translateX(-{SIDEBAR_WIDTH}px)'
+        s_style['zIndex'] = 1001
+        s_style['width'] = f'{SIDEBAR_WIDTH}px'
+        s_style['position'] = 'fixed'
+        s_style['left'] = '0'
+        s_style['top'] = '0'
+        s_style['height'] = '100vh'
+        s_style['overflow'] = 'hidden'
+
         c_style = content_style.copy() if content_style else {}
-        c_style['marginLeft'] = '0px'
+        c_style['left'] = '0'
         c_style['width'] = '100vw'
-        c_style['transition'] = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+        c_style['position'] = 'fixed'
+        c_style['top'] = '35px'
+        c_style['height'] = 'calc(100vh - 35px - 5px)'
+        c_style['transition'] = 'left 0.3s, width 0.3s'
         c_style['boxSizing'] = 'border-box'
-        
+        c_style['zIndex'] = 1
+        c_style['display'] = 'block'
         return s_style, c_style
     else:
-        # Sidebar visible, content shifted right
+        # Sidebar visible, content resized to available width
         s_style = sidebar_style.copy() if sidebar_style else {}
         s_style['transform'] = 'translateX(0)'
-        s_style['zIndex'] = 1000
-        
+        s_style['zIndex'] = 1001
+        s_style['width'] = f'{SIDEBAR_WIDTH}px'
+        s_style['position'] = 'fixed'
+        s_style['left'] = '0'
+        s_style['top'] = '0'
+        s_style['height'] = '100vh'
+        s_style['overflow'] = 'hidden'
+        s_style['display'] = 'block'
+
         c_style = content_style.copy() if content_style else {}
-        c_style['marginLeft'] = '280px'
-        c_style['width'] = 'calc(100vw - 280px)'
-        c_style['transition'] = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+        c_style['left'] = f'{SIDEBAR_WIDTH}px'
+        c_style['width'] = f'calc(100vw - {SIDEBAR_WIDTH}px)'
+        c_style['position'] = 'fixed'
+        c_style['top'] = '35px'
+        c_style['height'] = 'calc(100vh - 35px - 5px)'
+        c_style['transition'] = 'left 0.3s, width 0.3s'
         c_style['boxSizing'] = 'border-box'
-        
+        c_style['zIndex'] = 1
+        c_style['display'] = 'block'
         return s_style, c_style
 
 # Callback for navigation between pages
