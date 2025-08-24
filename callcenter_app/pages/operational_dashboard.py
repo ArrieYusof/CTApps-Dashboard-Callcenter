@@ -330,8 +330,10 @@ operational_dashboard_layout = html.Div([
     ], className="dashboard-grid"),
     # Match executive dashboard style
 ], style={
-    "height": "calc(100vh - 35px - 5px)",
+    "height": "100%",  # Use full content area height
     "display": "flex",
     "flexDirection": "column",
-    "overflow": "hidden"
+    "overflow": "hidden",
+    "padding": "5px 10px 0 10px",  # 5px top padding, 10px left/right, 0 bottom
+    "boxSizing": "border-box"
 })

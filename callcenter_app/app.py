@@ -132,7 +132,7 @@ def toggle_sidebar(n_clicks):
     base_content_style = {
         'position': 'fixed',
         'top': '35px',
-        'height': 'calc(100vh - 40px)',
+        'height': 'calc(100vh - 35px)',  # Full height minus header
         'transition': 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         'boxSizing': 'border-box',
         'zIndex': 1,
