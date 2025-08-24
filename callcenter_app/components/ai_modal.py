@@ -8,47 +8,63 @@ import dash_bootstrap_components as dbc
 from dash import html, dcc
 from typing import Dict, Any, Optional
 
-def create_ai_insights_modal() -> dbc.Modal:
-    """Create simplified modal for displaying AI-generated markdown insights"""
-    return dbc.Modal([
-        dbc.ModalHeader([
-            html.H4("", id="modal-kpi-title"),
-            html.Div([
-                html.Span("🤖 AI", className="ai-badge"),
-                html.Span("", id="ai-status-indicator", className="ai-subtitle")
-            ], className="ai-indicator")
-        ], close_button=True),
+def create_ai_insights_modal() -> html.Div:
+    """Create simplified modal for displaying AI-generated markdown insights with async processing"""
+    return html.Div([
+        # Data store for AI processing state
+        dcc.Store(id="ai-processing-store", data=None),
         
-        dbc.ModalBody([
-            # Loading state with better styling
-            dcc.Loading(
-                id="modal-loading",
-                children=[
-                    # Main markdown content area
-                    html.Div([
-                        dcc.Markdown(
-                            "# 🤖 Loading AI Insights...\n\n**Please wait while we analyze your KPI data...**\n\n*This may take a few moments.*",
-                            id="modal-markdown-content",
-                            className="ai-insights-markdown",
-                            dangerously_allow_html=True
-                        )
-                    ], id="modal-content-wrapper")
-                ],
-                type="circle",
-                color="var(--accent-blue)",
-                style={"minHeight": "200px"}
-            )
-        ]),
+        # Interval component for checking AI processing status
+        # Processing interval - disabled by default
+        dcc.Interval(
+            id='ai-processing-interval',
+            interval=1000,  # Check every second
+            n_intervals=0,
+            disabled=True,  # Disabled by default
+            max_intervals=100  # Limit to prevent runaway intervals
+        ),
         
-        dbc.ModalFooter([
-            html.Button([
-                html.I(className="fas fa-sync-alt", style={"marginRight": "6px"}),
-                "Refresh Analysis"
-            ], id="btn-refresh-insights", className="btn-refresh"),
-            dbc.Button("Close", id="btn-close-modal", className="btn-close-modal", size="sm")
-        ])
-        
-    ], id="modal-kpi-insights", size="lg", is_open=False, className="ai-insights-modal")
+        # The actual modal
+        dbc.Modal([
+            dbc.ModalHeader([
+                html.H4("", id="modal-kpi-title"),
+                html.Div([
+                    html.Span("🤖 AI", className="ai-badge"),
+                    html.Span("", id="ai-status-indicator", className="ai-subtitle")
+                ], className="ai-indicator")
+            ], close_button=True),
+            
+            dbc.ModalBody([
+                # Loading state with better styling
+                dcc.Loading(
+                    id="modal-loading",
+                    children=[
+                        # Main markdown content area
+                        html.Div([
+                            dcc.Markdown(
+                                "# 🤖 Loading AI Insights...\n\n**Please wait while we analyze your KPI data...**\n\n*This may take a few moments.*",
+                                id="modal-markdown-content",
+                                className="ai-insights-markdown",
+                                dangerously_allow_html=True
+                            )
+                        ], id="modal-content-wrapper")
+                    ],
+                    type="circle",
+                    color="var(--accent-blue)",
+                    style={"minHeight": "200px"}
+                )
+            ]),
+            
+            dbc.ModalFooter([
+                html.Button([
+                    html.I(className="fas fa-sync-alt", style={"marginRight": "6px"}),
+                    "Refresh Analysis"
+                ], id="btn-refresh-insights", className="btn-refresh"),
+                dbc.Button("Close", id="btn-close-modal", className="btn-close-modal", size="sm")
+            ])
+            
+        ], id="modal-kpi-insights", size="lg", is_open=False, className="ai-insights-modal")
+    ])
 
 def format_insights_for_display(insights_data: Dict[str, Any]) -> Dict[str, Any]:
     """Format AI insights data for modal display - Simplified for Markdown"""
@@ -69,7 +85,7 @@ def format_insights_for_display(insights_data: Dict[str, Any]) -> Dict[str, Any]
     
     # Format AI status indicator
     if insights_data.get('ai_enabled', False) and source == 'openai_markdown':
-        ai_status = "Powered by OpenAI GPT-4"
+        ai_status = "AI Analysis"
     elif source == 'rag_fallback' or source == 'rag_only':
         ai_status = "Data-Driven Analysis"
     else:

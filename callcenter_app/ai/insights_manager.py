@@ -173,7 +173,7 @@ class AIInsightsManager:
 {risks}
 
 ---
-*Analysis generated using RAG-enhanced historical data*
+*Analysis generated using enhanced historical data*
 """
         
         return markdown_content
