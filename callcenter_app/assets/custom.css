@@ -398,6 +398,17 @@ body {
     box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4) !important;
 }
 
+/* Burger Menu Button */
+.burger-menu {
+    background: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
 /* Alert Strip */
 .alert-strip {
     background: linear-gradient(90deg, 
@@ -524,15 +535,6 @@ body {
     z-index: 1003 !important;  /* Higher than header */
     pointer-events: auto !important;  /* Ensure clickable */
     position: relative !important;
-}
-
-.burger-line {
-    display: block;
-    width: 14px;
-    height: 2px;
-    margin: 1px 0;
-    background: #fff;
-    border-radius: 2px;
 }
 
 /* Sidebar */

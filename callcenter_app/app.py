@@ -35,15 +35,8 @@ app.layout = html.Div([
                 html.Button(
                     "☰",  # Just the hamburger icon without text
                     id="main-header-toggle",
-                    className="burger-menu",
-                    style={
-                        "background": "red", 
-                        "color": "white", 
-                        "padding": "5px 10px", 
-                        "border": "none", 
-                        "cursor": "pointer",
-                        "fontSize": "14px"
-                    }
+                    className="burger-menu"
+                    # All styling handled by CSS class
                 ),
                 html.Span(id="header-page-title", className="header-page-title", style={"color": "#fff", "fontWeight": "600", "fontSize": "0.95rem", "marginLeft": "12px"}),
                 html.Span(id="live-monitoring-label", children="LIVE MONITORING", style={

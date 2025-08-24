@@ -100,19 +100,13 @@ Build a dual-dashboard application for a call center, targeting:
     operational_dashboard.py  # Operational dashboard page
   /components/
     sidebar.py                # Sidebar navigation (burger menu)
-    executive_kpi_card.py     # KPI card for executive dashboard
-    operational_kpi_card.py   # KPI card for operational dashboard
-    executive_charts.py       # Chart components for executive dashboard
-    operational_charts.py     # Chart components for operational dashboard
   /assets/
     custom.css                # Black theme overrides, branding
   /data/
     executive_dummy_data.py   # Dummy/mockup data for executive dashboard
     operational_dummy_data.py # Dummy/mockup data for operational dashboard
   /utils/
-    db.py                     # DB connection utilities
     formatting.py             # Formatting helpers
-    api.py                    # Future API integrations
   __init__.py
 ```
 
