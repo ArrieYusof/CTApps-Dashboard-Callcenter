@@ -251,11 +251,13 @@ def create_chart_for_kpi(kpi_title, chart_data, trend_type):
     if kpi_title == "Revenue Growth":
         months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
         config = CHART_CONFIG["revenue_growth"]
-        text = [f"${v:,.0f}" for v in chart_data]
+        # Format text as millions since data is in thousands (1000 = $1.0M)
+        text = [f"${v/1000:.1f}M" for v in chart_data]
         return create_line_chart(months[:len(chart_data)], chart_data, config, text)
     if kpi_title == "Cash Flow":
         quarters = ['Q1', 'Q2', 'Q3', 'Q4']
-        values = [350000, 420000, 390000, 480000]
+        # Use the provided chart_data, but take only the first 4 values for quarterly display
+        values = [v * 1000 for v in chart_data[:4]]  # Convert from thousands to actual values
         config = CHART_CONFIG["cash_flow"]
         text = [f'${v//1000}K' for v in values]
         return create_bar_chart(quarters, values, config, text)
@@ -309,7 +311,7 @@ def create_kpi_card(title, value, trend, trend_type, chart_data, card_id):
                 )
             ], className="chart-container", style={"position": "relative", "overflow": "hidden", "height": "100%"})
         ], className="kpi-card-content")
-    ], className="premium-card grid-item")
+    ], className="kpi-card")
 
 def create_alert_card():
     """Create a styled alert card for dashboard grid with smaller font size."""
@@ -341,13 +343,13 @@ executive_dashboard_layout = html.Div([
     # Dashboard Grid using CSS Grid
     html.Div([
         # First row: 3 KPI
-        html.Div(create_kpi_card("Revenue Growth", "$1.2M", "+8.5%", "positive", data["revenue_growth"], "revenue-chart"), className="kpi-card"),
-        html.Div(create_kpi_card("Cost per Call", "$2.45", "-12%", "positive", data["cost_per_call"], "cost-chart"), className="kpi-card"),
-        html.Div(create_kpi_card("Cash Flow", "$890K", "+15.2%", "positive", [350000, 420000, 390000, 480000], "kpi-card cash-chart"), className="kpi-card"),
+        create_kpi_card("Revenue Growth", f"${data['revenue_growth'][-1]/1000:.1f}M", "+12%", "positive", data["revenue_growth"], "revenue-chart"),
+        create_kpi_card("Cost per Call", "$2.45", "-12%", "positive", data["cost_per_call"], "cost-chart"),
+        create_kpi_card("Cash Flow", f"${data['cash_flow'][3]}K", "+2.3%", "positive", data["cash_flow"], "cash-chart"),
         # Second row: 3 KPI
-        html.Div(create_kpi_card("Efficiency Rate", "94.2%", "+3.1%", "positive", data["efficiency"], "efficiency-chart"), className="kpi-card"),
-        html.Div(create_kpi_card("Customer Retention", "96.8%", "+2.4%", "positive", [96.8], "retention-chart"), className="kpi-card"),
-        html.Div(create_kpi_card("Performance Index", "8.7/10", "+0.5", "positive", [8.5, 8.8, 9.2, 8.4, 8.9], "summary-chart"), className="kpi-card"),
+        create_kpi_card("Efficiency Rate", "94.2%", "+3.1%", "positive", data["efficiency"], "efficiency-chart"),
+        create_kpi_card("Customer Retention", "96.8%", "+2.4%", "positive", [96.8], "retention-chart"),
+        create_kpi_card("Performance Index", "8.7/10", "+0.5", "positive", [8.5, 8.8, 9.2, 8.4, 8.9], "summary-chart"),
         # Third row: 1/3 alert card, 2/3 wide orange border card
         html.Div(create_alert_card(), className="alert-card"),
         html.Div([], className="wide-card orange-border"),
@@ -357,6 +359,6 @@ executive_dashboard_layout = html.Div([
     "display": "flex",
     "flexDirection": "column",
     "overflow": "hidden",
-    "padding": "5px 10px 0 10px",  # 5px top padding, 10px left/right, 0 bottom
+    "padding": "10px 10px 0 10px",  # 10px top padding to prevent hover cutoff, 10px left/right, 0 bottom
     "boxSizing": "border-box"
 })

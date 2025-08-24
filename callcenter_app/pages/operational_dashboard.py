@@ -334,6 +334,6 @@ operational_dashboard_layout = html.Div([
     "display": "flex",
     "flexDirection": "column",
     "overflow": "hidden",
-    "padding": "5px 10px 0 10px",  # 5px top padding, 10px left/right, 0 bottom
+    "padding": "10px 10px 0 10px",  # 10px top padding to prevent hover cutoff, 10px left/right, 0 bottom
     "boxSizing": "border-box"
 })

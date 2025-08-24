@@ -10,7 +10,7 @@ def get_executive_data():
     return {
         "revenue_growth": [1000, 1100, 950, 1200, 1350, 1250, 1400],  # 7-point trend
         "cost_per_call": [2.8, 2.7, 2.9, 2.6, 2.5, 2.4, 2.45],      # Decreasing cost trend
-        "cash_flow": [200, 250, 180, 300, 320, 340, 340],             # Improving cash flow
+        "cash_flow": [750, 820, 850, 870, 890, 890, 890],             # Cash flow in thousands (RM)
         "efficiency": [88, 89, 91, 92, 93, 94, 94.2],                 # Improving efficiency
         "retention": [91, 90, 89.5, 89, 89.2, 89.5, 89.4],           # Slight decline
         "summary_data": [75, 78, 82, 85, 88, 90, 92]                  # Overall trend

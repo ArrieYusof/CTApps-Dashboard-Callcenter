@@ -247,8 +247,8 @@ body {
     border-color: rgba(0, 212, 255, 0.3) !important;
 }
 
-/* Apply same hover effect to all KPI cards */
-.kpi-card:hover {
+/* Apply same hover effect to all KPI cards - but only if not already styled by dashboard-grid */
+.kpi-card:not(.dashboard-grid .kpi-card):hover {
     transform: translateY(-4px) !important;
     box-shadow: 0 16px 48px rgba(0, 212, 255, 0.15) !important;
     border-color: rgba(0, 212, 255, 0.3) !important;
@@ -926,7 +926,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr;  /* 3 equal columns */
     gap: 5px;  /* 5px between all items */
     width: 100%;
-    height: calc(100% - 5px);  /* Full container height minus 5px top padding */
+    height: calc(100% - 10px);  /* Full container height minus 10px top padding to prevent cutoff */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -948,8 +948,15 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    border: 1px solid transparent;  /* Add border for hover effect */
+    border: 1px solid rgba(255,255,255,0.1);  /* Subtle visible border */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* Smooth hover transition */
+}
+
+/* Hover effect for KPI cards - replaces border instead of adding */
+.dashboard-grid .kpi-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 16px 48px rgba(0, 212, 255, 0.15) !important;
+    border: 1px solid rgba(0, 212, 255, 0.3) !important;  /* Replace border, don't add */
 }
 
 /* Last row: 2 cards, first 1/3, second 2/3 */

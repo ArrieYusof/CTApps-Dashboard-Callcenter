@@ -381,10 +381,11 @@ def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, in
             'agents_wide': {'kpi': 'avg_response_time', 'display': 'Agent Performance', 'value': 32},
             
             # Executive Dashboard Cards
-            'revenue-chart': {'kpi': 'revenue_growth', 'display': 'Revenue Growth', 'value': 12.5},
-            'cost-chart': {'kpi': 'cost_per_call', 'display': 'Cost per Call', 'value': 8.50},
-            'cash-flow': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 245000},
-            'kpi-card cash-chart': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 245000},
+            'revenue-chart': {'kpi': 'revenue_growth', 'display': 'Revenue Growth', 'value': 1400000},  # Convert to actual currency (1.4M)
+            'cost-chart': {'kpi': 'cost_per_call', 'display': 'Cost per Call', 'value': 2.45},
+            'cash-flow': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 870000},
+            'cash-chart': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 870000},
+            'kpi-card cash-chart': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 870000},
             'margin-chart': {'kpi': 'profit_margin', 'display': 'Profit Margin', 'value': 18.3},
             'performance': {'kpi': 'kpi_performance', 'display': 'Performance Index', 'value': 85.3},
             'retention': {'kpi': 'customer_retention', 'display': 'Customer Retention', 'value': 94.7},
