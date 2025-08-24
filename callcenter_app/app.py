@@ -1,6 +1,6 @@
-# Version: 0.2
-# Last Modified: 2025-08-23
-# Changes: Premium app structure with enhanced navigation and 1920x1080 support
+# Version: 0.3
+# Last Modified: 2025-08-24
+# Changes: Fixed navigation overlay issue - sidebar now properly resizes content instead of overlaying
 """
 Main Dash app entry point for VADS Call Center Dashboard
 Premium Edition with pixel-perfect 1920x1080 layout
@@ -33,13 +33,17 @@ app.layout = html.Div([
         children=[
             html.Div([
                 html.Button(
+                    "☰",  # Just the hamburger icon without text
                     id="main-header-toggle",
                     className="burger-menu",
-                    children=[
-                        html.Span(className="burger-line"),
-                        html.Span(className="burger-line"),
-                        html.Span(className="burger-line")
-                    ]
+                    style={
+                        "background": "red", 
+                        "color": "white", 
+                        "padding": "5px 10px", 
+                        "border": "none", 
+                        "cursor": "pointer",
+                        "fontSize": "14px"
+                    }
                 ),
                 html.Span(id="header-page-title", className="header-page-title", style={"color": "#fff", "fontWeight": "600", "fontSize": "0.95rem", "marginLeft": "12px"}),
                 html.Span(id="live-monitoring-label", children="LIVE MONITORING", style={
@@ -62,15 +66,8 @@ app.layout = html.Div([
     html.Div(
         id='page-content', 
         children=executive_dashboard_layout,  # Default to executive dashboard
-        className='main-content-wrapper',
-        style={
-            "height": "calc(100vh - 35px - 5px)",
-            "overflow": "hidden",
-            "boxSizing": "border-box",
-            "position": "fixed",
-            "top": "35px",
-            # Remove left and width here; callback will set them
-        }
+        className='main-content-wrapper'
+        # No inline styles - let callback control positioning
     )
 ], style={
     "width": "100vw", 
@@ -104,60 +101,65 @@ def update_header_page_title(current_page):
     else:
         return '', {"display": "none"}
 
-# Callback to toggle sidebar
+# Callback to toggle sidebar - FINAL VERSION
 @app.callback(
     [Output('sidebar', 'style'), Output('page-content', 'style')],
     [Input('main-header-toggle', 'n_clicks')],
-    [State('sidebar', 'style'), State('page-content', 'style')]
+    prevent_initial_call=False
 )
-def toggle_sidebar(n_clicks, sidebar_style, content_style):
+def toggle_sidebar(n_clicks):
     SIDEBAR_WIDTH = 220  # px, match current sidebar width
+    
+    # Sidebar toggle logic: None/even = hidden, odd = visible
+    
+    # Create base styles
+    base_sidebar_style = {
+        'width': f'{SIDEBAR_WIDTH}px',
+        'height': 'calc(100vh - 35px)',  # Start below header (35px)
+        'position': 'fixed',
+        'top': '35px',  # Position below header
+        'zIndex': 1001,
+        'overflow': 'hidden',
+        'background': '#181A22',
+        'borderRight': '1px solid #23263A',
+        'boxShadow': '0 2px 16px rgba(0,0,0,0.08)',
+        'display': 'flex',
+        'flexDirection': 'column',
+        'alignItems': 'stretch',
+        'transition': 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+    }
+    
+    base_content_style = {
+        'position': 'fixed',
+        'top': '35px',
+        'height': 'calc(100vh - 40px)',
+        'transition': 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        'boxSizing': 'border-box',
+        'zIndex': 1,
+        'overflow': 'auto',
+        'display': 'block'
+    }
+    
     if n_clicks is None or n_clicks % 2 == 0:
         # Sidebar hidden, content full width
-        s_style = sidebar_style.copy() if sidebar_style else {}
-        s_style['transform'] = f'translateX(-{SIDEBAR_WIDTH}px)'
-        s_style['zIndex'] = 1001
-        s_style['width'] = f'{SIDEBAR_WIDTH}px'
-        s_style['position'] = 'fixed'
-        s_style['left'] = '0'
-        s_style['top'] = '0'
-        s_style['height'] = '100vh'
-        s_style['overflow'] = 'hidden'
-
-        c_style = content_style.copy() if content_style else {}
+        s_style = base_sidebar_style.copy()
+        s_style['left'] = f'-{SIDEBAR_WIDTH}px'
+        s_style['display'] = 'none'  # Force hide when not visible
+        
+        c_style = base_content_style.copy()
         c_style['left'] = '0'
         c_style['width'] = '100vw'
-        c_style['position'] = 'fixed'
-        c_style['top'] = '35px'
-        c_style['height'] = 'calc(100vh - 35px - 5px)'
-        c_style['transition'] = 'left 0.3s, width 0.3s'
-        c_style['boxSizing'] = 'border-box'
-        c_style['zIndex'] = 1
-        c_style['display'] = 'block'
         return s_style, c_style
     else:
         # Sidebar visible, content resized to available width
-        s_style = sidebar_style.copy() if sidebar_style else {}
-        s_style['transform'] = 'translateX(0)'
-        s_style['zIndex'] = 1001
-        s_style['width'] = f'{SIDEBAR_WIDTH}px'
-        s_style['position'] = 'fixed'
+        s_style = base_sidebar_style.copy()
         s_style['left'] = '0'
-        s_style['top'] = '0'
-        s_style['height'] = '100vh'
-        s_style['overflow'] = 'hidden'
-        s_style['display'] = 'block'
-
-        c_style = content_style.copy() if content_style else {}
+        s_style['display'] = 'flex'  # Show when visible
+        
+        c_style = base_content_style.copy()
         c_style['left'] = f'{SIDEBAR_WIDTH}px'
         c_style['width'] = f'calc(100vw - {SIDEBAR_WIDTH}px)'
-        c_style['position'] = 'fixed'
-        c_style['top'] = '35px'
-        c_style['height'] = 'calc(100vh - 35px - 5px)'
-        c_style['transition'] = 'left 0.3s, width 0.3s'
-        c_style['boxSizing'] = 'border-box'
-        c_style['zIndex'] = 1
-        c_style['display'] = 'block'
+        
         return s_style, c_style
 
 # Callback for navigation between pages

@@ -1,21 +1,10 @@
-/* Sidebar Wow Upgrade */
+/* Sidebar - Let callback control all positioning */
 .sidebar {
     background: var(--card-bg) !important;
     backdrop-filter: blur(24px) !important;
     border-right: 2px solid var(--accent-blue) !important;
     box-shadow: 0 0 32px 0 rgba(0,212,255,0.12) !important;
-    width: 220px !important;
-    padding: 0 !important;
-    position: fixed !important;
-    top: 0;
-    left: 0;
-    height: 100vh !important;
-    z-index: 1001 !important;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
-    overflow: hidden !important;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    /* All positioning controlled by callback - no CSS interference */
 }
 .sidebar-accent-bar {
     width: 8px;
@@ -123,11 +112,11 @@
     padding: 0 !important;
     box-sizing: border-box !important;
 }
-/* Version: 0.2
-   Last Modified: 2025-08-23
-   Changes: Premium dark theme with modern color scheme and glass-morphism effects */
+/* Version: 0.3
+   Last Modified: 2025-08-24
+   Changes: Fixed navigation layout - sidebar resizes content properly, no overlay, header stays fixed */
 
-/* Global Reset and Full Viewport Control */
+/* Global Reset and Full Viewport Control with navigation improvements */
 * {
     margin: 0;
     padding: 0;
@@ -139,7 +128,7 @@ html, body {
     width: 100vw;
     margin: 0;
     padding: 0;
-    overflow: visible !important;
+    overflow: hidden !important;
 }
 
 body, html {
@@ -152,20 +141,36 @@ body, html {
 #_dash-app-content {
     height: 100vh !important;
     width: 100vw !important;
-    overflow: visible !important;
+    overflow: hidden !important;
 }
 
-/* Main wrapper - absolute positioning */
+/* Prevent content from showing behind sidebar when it's transitioning */
+.main-content-wrapper * {
+    box-sizing: border-box;
+}
+
+/* Ensure dashboard containers respect parent boundaries */
+.dashboard-container {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+/* Main wrapper - Let callback control left and width for sidebar toggle */
 .main-content-wrapper {
     position: fixed !important;
     top: 35px !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: calc(100vh - 35px - 5px) !important;
+    /* left and width controlled by callback - no !important */
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 40px) !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
-    transition: left 0.3s, width 0.3s;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1 !important;
+    overflow: auto !important;
+    display: block !important;
 }
 
 /* Color and Background Variables */
@@ -451,16 +456,17 @@ body {
 }
 
 .header-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: #000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    height: 35px;
-    display: flex;
-    align-items: center;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    z-index: 1002 !important;
+    background: #000 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+    height: 35px !important;
+    display: flex !important;
+    align-items: center !important;
+    pointer-events: auto !important;  /* Ensure header is clickable */
 }
 
 .header-title {
@@ -495,19 +501,22 @@ body {
     align-self: flex-end;
 }
 
-/* Burger Menu */
+/* Burger Menu - Enhanced for better clicking */
 .burger-menu {
-    background: #000;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    height: 22px;
-    width: 22px;
+    background: #000 !important;
+    border: none !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    height: 22px !important;
+    width: 22px !important;
+    z-index: 1003 !important;  /* Higher than header */
+    pointer-events: auto !important;  /* Ensure clickable */
+    position: relative !important;
 }
 
 .burger-line {
