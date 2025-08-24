@@ -289,7 +289,7 @@ def create_kpi_card(title, value, trend, trend_type, chart_data, card_id):
                     html.P(title, className="kpi-title"),
                     html.H2(value, className="kpi-metric"),
                 ], style={"flex": "1"}),
-                html.Button("More Details", className="more-details-btn", id=f"btn-{card_id}")
+                html.Button("More Details", className="more-details-btn", id={"type": "more-details-btn", "index": card_id})
             ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "flex-start", "marginBottom": "1px"}),
             # Trend indicator
             html.Div([

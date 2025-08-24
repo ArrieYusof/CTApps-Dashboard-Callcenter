@@ -1,0 +1,20 @@
+# AI-Enhanced Call Center Dashboard Dependencies
+# Version: 0.1
+# Last Modified: 2025-08-24
+
+# Core Dashboard Dependencies
+dash>=2.14.0
+dash-bootstrap-components>=1.5.0
+plotly>=5.15.0
+pandas>=2.0.0
+numpy>=1.24.0
+
+# AI and ML Dependencies
+openai>=1.3.0
+
+# Optional: For enhanced data processing
+scikit-learn>=1.3.0
+scipy>=1.10.0
+
+# Development Dependencies
+python-dotenv>=1.0.0  # For environment variable management

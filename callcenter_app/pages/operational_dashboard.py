@@ -207,7 +207,7 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
                         html.Span("LIVE", style={"fontSize": "0.95rem", "fontWeight": "600", "color": "#00FF88"})
                     ], className=f"kpi-trend {status_class}", style={"marginLeft": "18px", "verticalAlign": "middle"})
                 ], style={"display": "flex", "alignItems": "center", "gap": "0.5rem"}),
-                html.Button("View Details", className="more-details-btn", id=f"btn-{card_id}")
+                html.Button("View Details", className="more-details-btn", id={"type": "more-details-btn", "index": card_id})
             ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "center", "marginBottom": "2px"}),
             html.Div([
                 dcc.Graph(
@@ -225,7 +225,7 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
                     html.P(title, className="kpi-title"),
                     html.H2(value, className="kpi-metric"),
                 ], style={"flex": "1"}),
-                html.Button("View Details", className="more-details-btn", id=f"btn-{card_id}")
+                html.Button("View Details", className="more-details-btn", id={"type": "more-details-btn", "index": card_id})
             ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "flex-start", "marginBottom": "1px"}),
             # Trend indicator
             html.Div([
@@ -274,7 +274,7 @@ def create_agent_availability_card():
                 html.P("Agent Availability", className="kpi-title"),
                 html.H2(metric_text, className="kpi-metric"),
             ], style={"flex": "1"}),
-            html.Button("View Details", className="more-details-btn", id="btn-agent-availability")
+            html.Button("View Details", className="more-details-btn", id={"type": "more-details-btn", "index": "agent-availability"})
         ], style={"display": "flex", "justifyContent": "space-between", "alignItems": "flex-start", "marginBottom": "1px"}),
         html.Div([
             html.Span(status_icon, style={"fontSize": "0.6rem", "marginRight": "3px"}),

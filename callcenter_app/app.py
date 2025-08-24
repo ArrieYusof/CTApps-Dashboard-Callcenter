@@ -5,14 +5,25 @@
 Main Dash app entry point for VADS Call Center Dashboard
 Premium Edition with pixel-perfect 1920x1080 layout
 """
+import os
+import json
+from dotenv import load_dotenv
+load_dotenv()  # Load environment variables from .env file
+
 import dash
 import dash_bootstrap_components as dbc
-from dash import html, dcc, Input, Output, State
+from dash import html, dcc, Input, Output, State, ALL, callback_context
+from datetime import datetime
 
 # Import sidebar and page layouts
 from components.sidebar import get_sidebar
+from components.ai_modal import create_ai_insights_modal, format_insights_for_display
+from ai.insights_manager import AIInsightsManager
 from pages.executive_dashboard import executive_dashboard_layout
 from pages.operational_dashboard import operational_dashboard_layout
+
+# Import AI services
+from ai.insights_manager import AIInsightsManager
 
 # Initialize app with premium theme
 app = dash.Dash(
@@ -23,6 +34,9 @@ app = dash.Dash(
     ]
 )
 app.title = "VADS Call Center - Premium Dashboard"
+
+# Initialize AI insights manager
+ai_manager = AIInsightsManager()
 
 # Main app layout - Force full viewport usage
 app.layout = html.Div([
@@ -61,7 +75,11 @@ app.layout = html.Div([
         children=executive_dashboard_layout,  # Default to executive dashboard
         className='main-content-wrapper'
         # No inline styles - let callback control positioning
-    )
+    ),
+    
+    # AI Insights Modal
+    create_ai_insights_modal()
+    
 ], style={
     "width": "100vw", 
     "height": "100vh",
@@ -187,6 +205,156 @@ def update_nav_active(current_page):
     elif current_page == 'operational':
         return False, True
     return True, False
+
+# AI Insights Modal Callbacks
+@app.callback(
+    [Output('modal-kpi-insights', 'is_open'),
+     Output('modal-kpi-title', 'children'),
+     Output('modal-markdown-content', 'children'),
+     Output('ai-status-indicator', 'children')],
+    [Input({'type': 'more-details-btn', 'index': ALL}, 'n_clicks'),
+     Input('btn-close-modal', 'n_clicks'),
+     Input('btn-refresh-insights', 'n_clicks')],
+    [State('modal-kpi-insights', 'is_open'),
+     State('modal-kpi-title', 'children')],
+    prevent_initial_call=True
+)
+def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, is_open, current_title):
+    """Handle modal opening/closing and populate with AI insights - Updated for Markdown"""
+    ctx = callback_context
+    if not ctx.triggered:
+        print("🤖 AI INFO: No trigger detected, returning no_update")
+        return dash.no_update
+    
+    trigger = ctx.triggered[0]
+    prop_id = trigger['prop_id']
+    
+    print(f"🤖 AI INFO: Callback triggered - prop_id: {prop_id}")
+    print(f"🤖 AI INFO: Trigger details: {trigger}")
+    
+    # Close modal
+    if prop_id == 'btn-close-modal.n_clicks' and close_click:
+        print("🤖 AI INFO: Closing modal")
+        return False, dash.no_update, dash.no_update, dash.no_update
+    
+    # Open modal when any "More Details" button is clicked
+    if 'more-details-btn' in prop_id:
+        print(f"🤖 AI INFO: More Details button clicked - parsing prop_id: {prop_id}")
+        
+        # Extract card ID from button ID
+        try:
+            button_data = json.loads(prop_id.split('.')[0])
+            card_id = button_data['index']
+            print(f"🤖 AI INFO: Extracted card ID: {card_id}")
+        except Exception as e:
+            print(f"🤖 AI INFO: ❌ Error parsing button data: {e}")
+            return dash.no_update
+        
+        # Map card ID to KPI type and display name - Updated with unique KPI types
+        card_to_kpi_mapping = {
+            # Operational Dashboard Cards
+            'queue': {'kpi': 'call_volume', 'display': 'Real-Time Queue Status', 'value': 1248},
+            'agent-availability': {'kpi': 'agent_availability', 'display': 'Agent Availability', 'value': 89.2},
+            'sla': {'kpi': 'service_level', 'display': 'SLA Monitoring', 'value': 87.4},
+            'csat': {'kpi': 'satisfaction_score', 'display': 'Customer Satisfaction', 'value': 4.2}, 
+            'outcomes': {'kpi': 'first_call_resolution', 'display': 'Call Outcomes', 'value': 76.8},
+            'resources': {'kpi': 'resource_utilization', 'display': 'Resource Utilization', 'value': 82.5},
+            'agents_wide': {'kpi': 'avg_response_time', 'display': 'Agent Performance', 'value': 32},
+            
+            # Executive Dashboard Cards - Each with unique KPI type  
+            'revenue-chart': {'kpi': 'revenue_growth', 'display': 'Revenue Growth', 'value': 12.5},
+            'cost-chart': {'kpi': 'cost_per_call', 'display': 'Cost per Call', 'value': 8.50},
+            'cash-flow': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 245000},
+            'kpi-card cash-chart': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 245000},  # Alternative ID
+            'margin-chart': {'kpi': 'profit_margin', 'display': 'Profit Margin', 'value': 18.3},
+            'performance': {'kpi': 'kpi_performance', 'display': 'Performance Index', 'value': 85.3},
+            'retention': {'kpi': 'customer_retention', 'display': 'Customer Retention', 'value': 94.7},
+            
+            # Additional mappings
+            'efficiency-chart': {'kpi': 'operational_efficiency', 'display': 'Efficiency Rate', 'value': 91.2},
+            'summary-chart': {'kpi': 'overall_performance', 'display': 'Performance Summary', 'value': 88.7}
+        }
+        
+        mapping = card_to_kpi_mapping.get(card_id)
+        if not mapping:
+            print(f"🤖 AI INFO: ⚠️ No mapping found for card ID: {card_id}")
+            kpi_type = 'general_kpi'  # Default fallback
+            display_name = f"Unknown KPI ({card_id})"
+            current_value = 100
+        else:
+            kpi_type = mapping['kpi']
+            display_name = mapping['display']
+            current_value = mapping['value']
+        
+        print(f"🤖 AI INFO: Mapped to KPI: {kpi_type}, Display: {display_name}, Value: {current_value}")
+        
+        # Get AI insights using the insights manager
+        print(f"🤖 AI INFO: Initializing AIInsightsManager...")
+        insights_manager = AIInsightsManager()
+        
+        print(f"🤖 AI INFO: Requesting insights for {kpi_type} with value {current_value}...")
+        insights_data = insights_manager.get_kpi_insights_sync(
+            kpi_type=kpi_type,
+            current_value=current_value,
+            additional_context={"ai_enabled": True, "card_id": card_id, "display_name": display_name}
+        )
+        
+        print(f"🤖 AI INFO: Insights data received: success={insights_data.get('success')}")
+        print(f"🤖 AI INFO: Source: {insights_data.get('source')}")
+        
+        # Format for display
+        formatted_data = format_insights_for_display(insights_data)
+        print(f"🤖 AI INFO: Formatted data keys: {list(formatted_data.keys())}")
+        
+        print(f"🤖 AI INFO: Opening modal with title: {formatted_data['title']}")
+        print(f"🤖 AI INFO: AI status: {formatted_data['ai_status']}")
+        
+        return (
+            True,
+            formatted_data['title'], 
+            formatted_data['markdown_content'],
+            formatted_data['ai_status']
+        )
+    
+    # Refresh analysis (similar to opening but with fresh data)
+    if prop_id == 'btn-refresh-insights.n_clicks' and refresh_click and is_open:
+        print(f"🤖 AI INFO: Refresh button clicked, current_title: {current_title}")
+        
+        # Extract KPI type from current title
+        kpi_type = 'call_volume'  # Default fallback
+        if current_title and isinstance(current_title, str):
+            title_lower = current_title.lower()
+            if 'response time' in title_lower:
+                kpi_type = 'avg_response_time'
+            elif 'agent availability' in title_lower:
+                kpi_type = 'agent_availability'
+            elif 'satisfaction' in title_lower:
+                kpi_type = 'satisfaction_score'
+            # Add more mappings as needed
+        
+        print(f"🤖 AI INFO: Refreshing insights for: {kpi_type}")
+        
+        # Refresh insights
+        insights_manager = AIInsightsManager()
+        insights_data = insights_manager.get_kpi_insights_sync(
+            kpi_type=kpi_type,
+            current_value=100,
+            additional_context={"ai_enabled": True}
+        )
+        
+        formatted_data = format_insights_for_display(insights_data)
+        
+        print(f"🤖 AI INFO: Refresh complete - returning updated content")
+        
+        return (
+            True,
+            formatted_data['title'],
+            formatted_data['markdown_content'], 
+            formatted_data['ai_status']
+        )
+    
+    print(f"🤖 AI INFO: No matching condition, returning no_update")
+    return dash.no_update
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8050)
