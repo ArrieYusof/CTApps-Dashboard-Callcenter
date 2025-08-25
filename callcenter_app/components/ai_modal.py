@@ -15,13 +15,13 @@ def create_ai_insights_modal() -> html.Div:
         dcc.Store(id="ai-processing-store", data=None),
         
         # Interval component for checking AI processing status
-        # Processing interval - disabled by default
+        # Processing interval - disabled by default, 1-second updates for responsive UI
         dcc.Interval(
             id='ai-processing-interval',
-            interval=1000,  # Check every second
+            interval=1000,  # Check every 1 second for more responsive updates
             n_intervals=0,
-            disabled=True,  # Disabled by default
-            max_intervals=100  # Limit to prevent runaway intervals
+            disabled=True,  # Disabled by default - only enabled during active AI processing
+            max_intervals=30  # Maximum 30 seconds of processing (30 * 1s)
         ),
         
         # The actual modal

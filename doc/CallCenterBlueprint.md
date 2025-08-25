@@ -1,4 +1,4 @@
-# 📞 Call Center Dashboard Project Blueprint
+# 📞 Call Center Dashboard Project Blueprint 
 
 ---
 

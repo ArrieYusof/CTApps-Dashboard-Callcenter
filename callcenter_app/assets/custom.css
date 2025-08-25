@@ -329,6 +329,29 @@ body {
     align-items: stretch;
 }
 
+/* Fix for chart responsiveness - prevent color issues on width change */
+.chart-container .js-plotly-plot {
+    width: 100% !important;
+    height: 100% !important;
+    transition: none !important; /* Disable transitions that might interfere */
+}
+
+/* Ensure charts redraw properly when sidebar toggles */
+.chart-container .plotly .modebar {
+    display: none !important;
+}
+
+/* Force stable chart rendering during sidebar transitions */
+.wide-card .chart-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.wide-card .chart-container .js-plotly-plot .plotly {
+    width: 100% !important;
+    height: 100% !important;
+}
+
 /* Remove forced white fill for chart text so Plotly hover labels can use correct color */
 .chart-container svg text {
     display: block !important;
@@ -351,8 +374,9 @@ body {
 .chart-container svg a[href*="plotly"],
 .chart-container g[class*="modebar"],
 .chart-container g[class*="toolbar"],
-.chart-container path[d*="M12"],
-.chart-container path[fill="currentColor"],
+.chart-container path[d*="M12"] {
+    display: none !important;
+}
 
 /* Hide any elements positioned on the left side */
 
@@ -374,9 +398,7 @@ body {
 }
 
 /* Add a mask overlay to cover any left-side artifacts */
-.chart-container::before {
-    /* Removed left-side mask overlay to prevent clipping of chart labels */
-}
+/* Removed left-side mask overlay to prevent clipping of chart labels */
 
 /* More Details Button */
 /* More Details Button */

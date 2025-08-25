@@ -152,26 +152,53 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
         sorted_agents = sorted(zip(agent_names, chart_data), key=lambda x: x[1])
         sorted_names = [a[0] for a in sorted_agents]
         sorted_times = [a[1] for a in sorted_agents]
-        # Color bands: green for <=3.8, amber for <=4.2, red for >4.2
-        bar_colors = ["#00FF88" if t <= 3.8 else "#FFB800" if t <= 4.2 else "#FF3366" for t in sorted_times]
-        # Show only every 3rd agent label on x-axis
-        x_tickvals = [sorted_names[i] for i in range(len(sorted_names)) if i % 3 == 0]
+        
+        # Simple color assignment - GREEN for ≤3.8, AMBER for ≤4.2, RED for >4.2
+        colors = []
+        for time in sorted_times:
+            if time <= 3.8:
+                colors.append("#00FF88")  # Green
+            elif time <= 4.2:
+                colors.append("#FFB800")  # Amber  
+            else:
+                colors.append("#FF3366")  # Red
+        
         fig = go.Figure(go.Bar(
             x=sorted_names,
             y=sorted_times,
-            marker=dict(color=bar_colors, line=dict(color="#23263A", width=2)),
-            text=[f"{t:.2f} min" for t in sorted_times],
-            textposition="auto",
-            textfont=dict(color="#fff"),
-            hovertemplate="<b>%{x}</b><br>Handle Time: %{y:.2f} min<extra></extra>"
+            marker_color=colors,
+            text=[f"{t:.1f}" for t in sorted_times],
+            textposition="inside",
+            textfont=dict(color="#fff", size=10),
+            hovertemplate="<b>%{x}</b><br>Handle Time: %{y:.1f} min<extra></extra>"
         ))
+        
         fig.update_layout(
-            margin=dict(l=20, r=20, t=20, b=20),
+            margin=dict(l=20, r=20, t=30, b=20),
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
-            xaxis=dict(showgrid=False, showticklabels=True, zeroline=False, color="#fff", tickvals=x_tickvals, ticktext=x_tickvals),
-            yaxis=dict(title="Avg Handle Time", showgrid=False, showticklabels=True, zeroline=False, color="#fff"),
-            showlegend=False
+            xaxis=dict(
+                showgrid=False, 
+                showticklabels=True, 
+                zeroline=False, 
+                color="#fff",
+                tickangle=45,
+                # Show every 3rd agent name
+                tickvals=[i for i in range(0, len(sorted_names), 3)],
+                ticktext=[sorted_names[i] for i in range(0, len(sorted_names), 3)]
+            ),
+            yaxis=dict(
+                title="Handle Time (min)", 
+                showgrid=False, 
+                showticklabels=True, 
+                zeroline=False, 
+                color="#fff"
+            ),
+            showlegend=False,
+            # KEY FIX: Make chart responsive and prevent width-related rendering issues
+            autosize=True,
+            # Force fresh render on every update to prevent color persistence issues
+            uirevision=None
         )
     else:
         # Default sparkline
@@ -212,7 +239,11 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
             html.Div([
                 dcc.Graph(
                     figure=fig,
-                    config={'displayModeBar': False, 'staticPlot': False},
+                    config={
+                        'displayModeBar': False, 
+                        'staticPlot': False,
+                        'autosizable': True
+                    },
                     style={"height": "100%", "width": "100%"}
                 )
             ], className="chart-container")

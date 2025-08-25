@@ -195,6 +195,29 @@ def toggle_sidebar(n_clicks):
         
         return s_style, c_style
 
+# Clientside callback to refresh charts when sidebar toggles
+app.clientside_callback(
+    """
+    function(n_clicks) {
+        // Force a refresh of all Plotly charts after sidebar animation completes
+        setTimeout(function() {
+            var charts = document.querySelectorAll('.js-plotly-plot');
+            charts.forEach(function(chart) {
+                if (window.Plotly && chart._fullLayout) {
+                    window.Plotly.Plots.resize(chart);
+                    // Force a redraw to ensure colors are correct
+                    window.Plotly.redraw(chart);
+                }
+            });
+        }, 350); // Wait for transition to complete (300ms + buffer)
+        
+        return window.dash_clientside.no_update;
+    }
+    """,
+    Output('main-header-toggle', 'style'),  # Dummy output
+    Input('main-header-toggle', 'n_clicks')
+)
+
 # Callback for navigation between pages  
 @app.callback(
     [Output('page-content', 'children'), Output('current-page', 'data')],
@@ -239,7 +262,8 @@ def update_nav_active(current_page):
      Output('modal-markdown-content', 'children'),
      Output('ai-status-indicator', 'children'),
      Output('ai-processing-store', 'data'),
-     Output('ai-processing-interval', 'disabled')],
+     Output('ai-processing-interval', 'disabled'),
+     Output('ai-processing-interval', 'n_intervals')],  # Add n_intervals output to reset counter
     [Input({'type': 'more-details-btn', 'index': ALL}, 'n_clicks'),
      Input('btn-close-modal', 'n_clicks'),
      Input('btn-refresh-insights', 'n_clicks'),
@@ -279,58 +303,98 @@ def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, in
     
     # Close modal
     if prop_id == 'btn-close-modal.n_clicks' and close_click:
-        print("🤖 AI INFO: Closing modal - disabling interval")
-        return False, dash.no_update, dash.no_update, dash.no_update, None, True
+        print("🤖 AI INFO: Closing modal - cleaning up all processing state and disabling interval permanently")
+        # Clean up any remaining processing state
+        ai_processing_initiated = False
+        # Clear all processing states
+        ai_processing_state.clear()
+        return False, dash.no_update, dash.no_update, dash.no_update, None, True, dash.no_update
     
     # Check if AI processing is complete (interval callback)
     if prop_id == 'ai-processing-interval.n_intervals':
-        global ai_processing_initiated
         
-        # If AI processing was never initiated, disable the interval
+        # If AI processing was never initiated, disable the interval immediately
         if not ai_processing_initiated:
             print(f"🤖 AI INFO: Interval running but AI processing never initiated - disabling interval")
-            return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True  # Disable interval
+            return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True, dash.no_update  # Disable interval
         
-        # If no processing data, disable the interval to stop it
+        # If no processing data, disable the interval to stop it immediately
         if not processing_data:
-            print(f"🤖 AI INFO: Interval triggered but no processing data - disabling interval")
-            return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True  # Disable interval
+            print(f"🤖 AI INFO: Interval triggered but no processing data - disabling interval and resetting flag")
+            ai_processing_initiated = False  # Reset flag
+            return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True, dash.no_update  # Disable interval
             
         print(f"🤖 AI INFO: Checking AI processing status...")
         
         # Get processing ID from store data
         processing_id = processing_data if isinstance(processing_data, str) else processing_data.get('id')
-        if not processing_id or processing_id not in ai_processing_state:
-            print(f"🤖 AI INFO: Processing ID not found in global state")
-            raise PreventUpdate
+        if not processing_id:
+            print(f"🤖 AI INFO: No processing ID found - disabling interval and resetting flag")
+            ai_processing_initiated = False  # Reset flag
+            return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True, dash.no_update  # Disable interval
+            
+        if processing_id not in ai_processing_state:
+            print(f"🤖 AI INFO: Processing ID {processing_id} not found in global state - likely completed and cleaned up")
+            ai_processing_initiated = False  # Reset flag since processing is done
+            return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True, dash.no_update  # Disable interval
             
         # Get current processing state from global store
         current_state = ai_processing_state[processing_id]
         
         # Check if processing is complete
         if current_state.get('status') == 'complete':
-            print(f"🤖 AI INFO: AI processing complete, displaying results")
+            print(f"🤖 AI INFO: AI processing complete, displaying results and permanently disabling interval")
             
             insights_data = current_state.get('result', {})
             formatted_data = format_insights_for_display(insights_data)
             
-            # Clean up global state
+            # Clean up global state and reset processing flag permanently
             del ai_processing_state[processing_id]
+            ai_processing_initiated = False  # Reset flag to prevent any future intervals
             
             return (
-                True,  # Keep modal open
+                dash.no_update,  # Don't change modal state (keep it open)
                 formatted_data['title'], 
                 formatted_data['markdown_content'],
                 formatted_data['ai_status'],
-                None,  # Clear processing data
-                True   # Disable interval
+                None,  # Clear processing data to prevent further callbacks
+                True,  # Disable interval permanently
+                0      # Reset n_intervals to 0 for next use
             )
         
-        # Processing still ongoing - show animated waiting indicator
+        # Processing still ongoing - only update if there's a meaningful change
         elif current_state.get('status') == 'processing':
             elapsed_time = int(time.time() - current_state.get('start_time', 0))
             
-            # Create animated loading content
+            # Only update if elapsed time changed significantly (to reduce updates)
+            last_update_time = current_state.get('last_update_time', -1)
+            if elapsed_time <= last_update_time:
+                # No significant change, prevent ALL updates to stop flickering
+                print(f"🤖 AI INFO: No time change ({elapsed_time}s), preventing update")
+                raise PreventUpdate
+            
+            # Update the last update time to current elapsed time
+            current_state['last_update_time'] = elapsed_time
+            
+            # Timeout check - disable if processing takes too long (30+ seconds)
+            if elapsed_time > 30:
+                print(f"🤖 AI INFO: Processing timeout after {elapsed_time}s - cleaning up and disabling interval")
+                if processing_id in ai_processing_state:
+                    del ai_processing_state[processing_id]
+                ai_processing_initiated = False  # Reset flag
+                return (
+                    dash.no_update,
+                    dash.no_update,
+                    "# ⚠️ Processing Timeout\n\nAI processing took longer than expected. Please try again.",
+                    "⚠️ Timeout",
+                    None,  # Clear processing data
+                    True,  # Disable interval
+                    0      # Reset n_intervals to 0
+                )
+            
+            print(f"🤖 AI INFO: Updating loading content for {elapsed_time}s elapsed")
+            
+            # Create animated loading content (only if elapsed time is new)
             loading_content = f"""
 # 🤖 Analyzing Your Data...
 
@@ -351,13 +415,18 @@ def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, in
             """.strip()
             
             return (
-                True,  # Keep modal open
-                current_state.get('title', 'Loading...'),
-                loading_content,
+                dash.no_update,  # Don't change modal state (keep it open)
+                dash.no_update,  # Don't change title
+                loading_content, # Only update content
                 "🤖 Processing...",
                 processing_id,  # Keep processing ID
-                False  # Keep interval active
+                False,  # Keep interval active but reduce updates
+                dash.no_update  # Don't reset n_intervals while processing
             )
+        
+        # If we get here, something went wrong - disable interval
+        print(f"🤖 AI INFO: Unexpected processing state, disabling interval")
+        return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True, dash.no_update
     
     # Open modal when any "More Details" button is clicked or refresh
     if 'more-details-btn' in prop_id or prop_id == 'btn-refresh-insights.n_clicks':
@@ -526,7 +595,8 @@ def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, in
             initial_loading_content,
             "🤖 Initializing...",
             processing_id,  # Store processing ID
-            False  # Enable interval for status checking
+            False,  # Enable interval for status checking
+            0       # Reset n_intervals to 0 for fresh start
         )
     
     print(f"🤖 AI INFO: No matching condition, returning no_update")
