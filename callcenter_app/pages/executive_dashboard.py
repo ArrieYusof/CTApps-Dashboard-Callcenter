@@ -336,6 +336,268 @@ def create_alert_card():
         "height": "100%"
     })
 
+def create_sparkline_chart(title, data, current_value, trend_direction, color):
+    """Create a compact sparkline chart for leading indicators."""
+    fig = go.Figure()
+    
+    # Convert hex color to rgba with transparency
+    if color.startswith('#'):
+        # Convert hex to rgba
+        r, g, b = tuple(int(color[i:i+2], 16) for i in (1, 3, 5))
+        fill_color = f'rgba({r}, {g}, {b}, 0.2)'
+    else:
+        fill_color = 'rgba(0, 212, 255, 0.2)'  # Default fallback
+    
+    # Add sparkline
+    fig.add_trace(go.Scatter(
+        x=list(range(len(data))),
+        y=data,
+        mode='lines',
+        line=dict(color=color, width=2),
+        fill='tonexty',
+        fillcolor=fill_color,
+        showlegend=False,
+        hoverinfo='skip'
+    ))
+    
+    # Configure layout for compact sparkline
+    fig.update_layout(
+        height=60,
+        margin=dict(t=1, b=1, l=1, r=1),
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(visible=False, showgrid=False),
+        yaxis=dict(visible=False, showgrid=False),
+        showlegend=False
+    )
+    
+    return fig
+
+def create_sparkline_bar_chart(title, data, current_value, trend_direction, color):
+    """Create a compact bar chart for call volume data."""
+    fig = go.Figure()
+    
+    # Convert hex color to rgba with transparency
+    if color.startswith('#'):
+        r, g, b = tuple(int(color[i:i+2], 16) for i in (1, 3, 5))
+        fill_color = f'rgba({r}, {g}, {b}, 0.3)'
+    else:
+        fill_color = 'rgba(255, 184, 0, 0.3)'  # Default fallback
+    
+    # Add bar chart
+    fig.add_trace(go.Bar(
+        x=['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],  # Last 5 days
+        y=data,
+        marker_color=color,
+        marker_line_color=color,
+        marker_line_width=1,
+        showlegend=False,
+        hoverinfo='skip'
+    ))
+    
+    # Configure layout for compact bar chart
+    fig.update_layout(
+        height=60,
+        margin=dict(t=1, b=15, l=1, r=1),  # More bottom margin for day labels
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        xaxis=dict(
+            visible=True, 
+            showgrid=False, 
+            showticklabels=True,
+            tickfont=dict(size=8, color='white'),
+            tickangle=0
+        ),
+        yaxis=dict(visible=False, showgrid=False),
+        showlegend=False
+    )
+    
+    return fig
+
+def create_sparkline_gauge_chart(title, value, max_value, trend_direction, color):
+    """Create a compact gauge chart for executive performance indicators."""
+    fig = go.Figure()
+    
+    # Determine gauge color based on value
+    if value >= 85:
+        gauge_color = "#00FF88"  # Green - Excellent
+        bar_color = "#00FF88"
+    elif value >= 70:
+        gauge_color = "#FFB800"  # Yellow - Good
+        bar_color = "#FFB800"
+    else:
+        gauge_color = "#FF6B6B"  # Red - Needs Attention
+        bar_color = "#FF6B6B"
+    
+    fig.add_trace(go.Indicator(
+        mode="gauge+number",
+        value=value,
+        domain={'x': [0, 1], 'y': [0, 1]},
+        title={'text': "", 'font': {'size': 10, 'color': 'white'}},
+        number={'font': {'size': 14, 'color': gauge_color}},  # Reduced number font size
+        gauge={
+            'axis': {
+                'range': [None, max_value],
+                'tickwidth': 1,
+                'tickcolor': "white",
+                'tickfont': {'size': 7, 'color': 'white'}  # Smaller tick font
+            },
+            'bar': {'color': bar_color, 'thickness': 0.25},  # Thinner bar
+            'bgcolor': "rgba(255,255,255,0.1)",
+            'borderwidth': 1,
+            'bordercolor': "rgba(255,255,255,0.3)",
+            'steps': [
+                {'range': [0, 70], 'color': 'rgba(255, 107, 107, 0.3)'},  # Red zone
+                {'range': [70, 85], 'color': 'rgba(255, 184, 0, 0.3)'},   # Yellow zone
+                {'range': [85, max_value], 'color': 'rgba(0, 255, 136, 0.3)'}  # Green zone
+            ],
+            'threshold': {
+                'line': {'color': "white", 'width': 1},  # Thinner threshold line
+                'thickness': 0.6,  # Smaller threshold indicator
+                'value': 85  # Excellence threshold
+            }
+        }
+    ))
+    
+    fig.update_layout(
+        height=45,  # Reduced from 50 to 45px
+        margin=dict(t=5, b=2, l=5, r=5),  # Added 5px top padding for labels
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        font={'color': "white", 'size': 8}  # Smaller font size
+    )
+    
+    return fig
+
+def create_sparkline_panel():
+    """Create leading indicators sparkline panel."""
+    # Sample data for leading indicators
+    sparkline_data = {
+        "performance_index": {
+            "title": "Performance Index",
+            "data": [87],  # Single value for gauge
+            "current": "87/100",
+            "trend": "up",
+            "color": "#00FF88",
+            "chart_type": "gauge",  # Special flag for gauge chart
+            "max_value": 100
+        },
+        "employee_satisfaction": {
+            "title": "Customer Satisfaction",
+            "data": [7.8, 7.9, 7.7, 8.1, 8.3, 8.2, 8.4, 8.6, 8.5, 8.7, 8.8, 8.9],
+            "current": "8.9/10",
+            "trend": "up",
+            "color": "#00D4FF"
+        },
+        "call_volume": {
+            "title": "Call Volume (5 Days)",
+            "data": [2840, 3120, 2950, 3280, 3450],  # Last 5 days call counts
+            "current": "3,450",
+            "trend": "up",
+            "color": "#FFB800",
+            "chart_type": "bar"  # Special flag for bar chart
+        },
+        "compliance_score": {
+            "title": "Compliance Score",
+            "data": [94, 95, 93, 96, 97, 95, 98, 96, 97, 98, 99, 98],
+            "current": "98%",
+            "trend": "stable",
+            "color": "#A78BFA"
+        }
+    }
+    
+    sparkline_cards = []
+    for key, metric in sparkline_data.items():
+        trend_icon = "↗" if metric["trend"] == "up" else "→" if metric["trend"] == "stable" else "↘"
+        trend_color = "#00FF88" if metric["trend"] == "up" else "#FFB800" if metric["trend"] == "stable" else "#FF6B6B"
+        
+        card = html.Div([
+            html.Div([
+                html.Div([
+                    html.H4(metric["title"], style={
+                        "fontSize": "0.7rem", 
+                        "margin": "0", 
+                        "color": "#ffffff", 
+                        "fontWeight": "500",
+                        "lineHeight": "1",
+                        "flex": "1"
+                    }),
+                    html.Div([
+                        html.Span(metric["current"], style={
+                            "fontSize": "0.85rem", 
+                            "fontWeight": "bold", 
+                            "color": metric["color"],
+                            "marginRight": "4px"
+                        }),
+                        html.Span(trend_icon, style={
+                            "fontSize": "0.8rem", 
+                            "color": trend_color
+                        })
+                    ], style={"display": "flex", "alignItems": "center"})
+                ], style={
+                    "display": "flex", 
+                    "alignItems": "center", 
+                    "justifyContent": "space-between",
+                    "marginBottom": "4px"
+                }),
+                dcc.Graph(
+                    figure=create_sparkline_bar_chart(
+                        metric["title"], 
+                        metric["data"], 
+                        metric["current"], 
+                        metric["trend"], 
+                        metric["color"]
+                    ) if metric.get("chart_type") == "bar" else create_sparkline_gauge_chart(
+                        metric["title"],
+                        metric["data"][0],  # First value for gauge
+                        metric.get("max_value", 100),
+                        metric["trend"],
+                        metric["color"]
+                    ) if metric.get("chart_type") == "gauge" else create_sparkline_chart(
+                        metric["title"], 
+                        metric["data"], 
+                        metric["current"], 
+                        metric["trend"], 
+                        metric["color"]
+                    ),
+                    config={'displayModeBar': False},
+                    style={"height": "45px", "flex": "1"}  # Reduced height for gauge
+                )
+            ], style={"height": "100%", "display": "flex", "flexDirection": "column"})
+        ], style={
+            "background": "rgba(255,255,255,0.08)",
+            "borderRadius": "8px",
+            "padding": "4px",
+            "border": f"1px solid {metric['color']}33",
+            "height": "100%",
+            "display": "flex",
+            "flexDirection": "column",
+            "minHeight": "0"
+        })
+        sparkline_cards.append(card)
+    
+    return html.Div([
+        html.H3("Leading Indicators", style={
+            "fontSize": "0.9rem", 
+            "margin": "0 0 8px 0", 
+            "color": "#ffffff",
+            "fontWeight": "600",
+            "lineHeight": "1"
+        }),
+        html.Div(sparkline_cards, style={
+            "display": "grid",
+            "gridTemplateColumns": "1fr 1fr 1fr 1fr",  # 4 columns in one row
+            "gridTemplateRows": "1fr",  # Single row
+            "gap": "6px",
+            "height": "calc(100% - 24px)"
+        })
+    ], style={
+        "height": "100%",
+        "padding": "8px",
+        "overflow": "hidden",
+        "boxSizing": "border-box"
+    })
+
 # Get dummy data after all functions are defined
 data = get_executive_data()
 
@@ -350,15 +612,15 @@ executive_dashboard_layout = html.Div([
         create_kpi_card("Efficiency Rate", "94.2%", "+3.1%", "positive", data["efficiency"], "efficiency-chart"),
         create_kpi_card("Customer Retention", "96.8%", "+2.4%", "positive", [96.8], "retention-chart"),
         create_kpi_card("Performance Index", "8.7/10", "+0.5", "positive", [8.5, 8.8, 9.2, 8.4, 8.9], "summary-chart"),
-        # Third row: 1/3 alert card, 2/3 wide orange border card
+        # Third row: 1/3 alert card, 2/3 leading indicators sparklines
         html.Div(create_alert_card(), className="alert-card"),
-        html.Div([], className="wide-card orange-border"),
+        html.Div(create_sparkline_panel(), className="wide-card orange-border"),
     ], className="dashboard-grid"),
 ], style={
-    "height": "100%",  # Use full content area height
+    "height": "calc(100vh - 35px)",  # Match exact header height from app.py
     "display": "flex",
     "flexDirection": "column",
     "overflow": "hidden",
-    "padding": "10px 10px 0 10px",  # 10px top padding to prevent hover cutoff, 10px left/right, 0 bottom
+    "padding": "0",  # No padding to use full space
     "boxSizing": "border-box"
 })

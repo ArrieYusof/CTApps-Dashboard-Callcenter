@@ -188,7 +188,7 @@ def create_operational_kpi_card(title, value, status, chart_data, card_id):
                 ticktext=[sorted_names[i] for i in range(0, len(sorted_names), 3)]
             ),
             yaxis=dict(
-                title="Handle Time (min)", 
+                title="Handle Time", 
                 showgrid=False, 
                 showticklabels=True, 
                 zeroline=False, 
