@@ -400,9 +400,9 @@ body {
 /* Add a mask overlay to cover any left-side artifacts */
 /* Removed left-side mask overlay to prevent clipping of chart labels */
 
-/* More Details Button */
-/* More Details Button */
-.more-details-btn {
+/* AI Analysis Button */
+/* AI Analysis Button */
+.ai-analysis-btn {
     padding: 1px 4px;
     font-size: clamp(0.45rem, 0.55vw, 0.55rem);
     background: rgba(74, 144, 226, 0.15);
@@ -415,7 +415,7 @@ body {
     white-space: nowrap;
 }
 
-.more-details-btn:hover {
+.ai-analysis-btn:hover {
     transform: translateY(-2px) !important;
     box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4) !important;
 }

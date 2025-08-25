@@ -264,7 +264,7 @@ def update_nav_active(current_page):
      Output('ai-processing-store', 'data'),
      Output('ai-processing-interval', 'disabled'),
      Output('ai-processing-interval', 'n_intervals')],  # Add n_intervals output to reset counter
-    [Input({'type': 'more-details-btn', 'index': ALL}, 'n_clicks'),
+    [Input({'type': 'ai-analysis-btn', 'index': ALL}, 'n_clicks'),
      Input('btn-close-modal', 'n_clicks'),
      Input('btn-refresh-insights', 'n_clicks'),
      Input('ai-processing-interval', 'n_intervals')],
@@ -428,18 +428,18 @@ def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, in
         print(f"🤖 AI INFO: Unexpected processing state, disabling interval")
         return dash.no_update, dash.no_update, dash.no_update, dash.no_update, None, True, dash.no_update
     
-    # Open modal when any "More Details" button is clicked or refresh
-    if 'more-details-btn' in prop_id or prop_id == 'btn-refresh-insights.n_clicks':
+    # Open modal when any "AI Analysis" button is clicked or refresh
+    if 'ai-analysis-btn' in prop_id or prop_id == 'btn-refresh-insights.n_clicks':
         
         # Validate that the button was actually clicked (not just initialized)
-        if 'more-details-btn' in prop_id:
+        if 'ai-analysis-btn' in prop_id:
             # Check the actual trigger value - it should not be None for a real click
             trigger_value = trigger['value']
             if trigger_value is None:
                 print(f"🤖 AI INFO: Button initialized with trigger value={trigger_value}, ignoring")
                 raise PreventUpdate
                 
-            print(f"🤖 AI INFO: More Details button clicked - parsing prop_id: {prop_id}")
+            print(f"🤖 AI INFO: AI Analysis button clicked - parsing prop_id: {prop_id}")
             
             # Extract card ID from button ID
             try:
