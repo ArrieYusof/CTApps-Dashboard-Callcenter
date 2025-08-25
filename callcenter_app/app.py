@@ -1,10 +1,20 @@
-# Version: 0.3
-# Last Modified: 2025-08-24
-# Changes: Fixed navigation overlay issue - sidebar now properly resizes content instead of overlaying
+# Version: 0.1
+# Last Modified: 2025-08-25
+# Changes: Added AI Assistant navigation and chat functionality
 """
 Main Dash app entry point for VADS Call Center Dashboard
 Premium Edition with pixel-perfect 1920x1080 layout
 """
+import dash
+import dash_bootstrap_components as dbc
+from dash import html, dcc, Input, Output, State, callback_context, no_update
+from dash.exceptions import PreventUpdate
+import plotly.express as px
+import plotly.graph_objects as go
+from datetime import datetime, timedelta
+import threading
+import time
+import uuid
 import os
 import json
 from dotenv import load_dotenv
@@ -21,6 +31,7 @@ from components.ai_modal import create_ai_insights_modal, format_insights_for_di
 from ai.insights_manager import AIInsightsManager
 from pages.executive_dashboard import executive_dashboard_layout
 from pages.operational_dashboard import operational_dashboard_layout
+from pages.ai_assistant import ai_assistant_layout
 
 # Initialize app with premium theme
 app = dash.Dash(
@@ -28,7 +39,8 @@ app = dash.Dash(
     external_stylesheets=[dbc.themes.BOOTSTRAP, '/assets/custom.css'],
     meta_tags=[
         {"name": "viewport", "content": "width=1920, initial-scale=0.5, user-scalable=yes"}
-    ]
+    ],
+    suppress_callback_exceptions=True  # Allow callbacks to dynamically generated components
 )
 
 # Global state for AI processing
@@ -103,8 +115,17 @@ def update_header_page_title(current_page):
             "fontWeight": "600",
             "color": "var(--accent-green)",
             "margin": "0 auto",
-            "opacity": 0.85,
-            "animation": "blink 2s infinite",
+            "display": "inline",
+            "position": "absolute",
+            "left": "50%",
+            "transform": "translateX(-50%)"
+        }
+    elif current_page == 'assistant':
+        return 'AI Assistant', {
+            "fontSize": "0.7rem",
+            "fontWeight": "600",
+            "color": "var(--accent-blue)",
+            "margin": "0 auto",
             "display": "inline",
             "position": "absolute",
             "left": "50%",
@@ -174,13 +195,13 @@ def toggle_sidebar(n_clicks):
         
         return s_style, c_style
 
-# Callback for navigation between pages
+# Callback for navigation between pages  
 @app.callback(
     [Output('page-content', 'children'), Output('current-page', 'data')],
-    [Input('nav-exec', 'n_clicks'), Input('nav-ops', 'n_clicks')],
+    [Input('nav-exec', 'n_clicks'), Input('nav-ops', 'n_clicks'), Input('nav-assistant', 'n_clicks')],
     [State('current-page', 'data')]
 )
-def navigate_pages(exec_clicks, ops_clicks, current_page):
+def navigate_pages(exec_clicks, ops_clicks, assistant_clicks, current_page):
     ctx = dash.callback_context
     
     if not ctx.triggered:
@@ -192,20 +213,24 @@ def navigate_pages(exec_clicks, ops_clicks, current_page):
         return executive_dashboard_layout, 'executive'
     elif button_id == 'nav-ops':
         return operational_dashboard_layout, 'operational'
+    elif button_id == 'nav-assistant':
+        return ai_assistant_layout(), 'assistant'
     
     return executive_dashboard_layout, 'executive'
 
 # Callback to update active navigation state
 @app.callback(
-    [Output('nav-exec', 'active'), Output('nav-ops', 'active')],
+    [Output('nav-exec', 'active'), Output('nav-ops', 'active'), Output('nav-assistant', 'active')],
     [Input('current-page', 'data')]
 )
 def update_nav_active(current_page):
     if current_page == 'executive':
-        return True, False
+        return True, False, False
     elif current_page == 'operational':
-        return False, True
-    return True, False
+        return False, True, False
+    elif current_page == 'assistant':
+        return False, False, True
+    return True, False, False
 
 # AI Insights Modal Callbacks - Updated for async loading with animated indicator
 @app.callback(
@@ -388,7 +413,7 @@ def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, in
             'kpi-card cash-chart': {'kpi': 'cash_flow', 'display': 'Cash Flow', 'value': 870000},
             'margin-chart': {'kpi': 'profit_margin', 'display': 'Profit Margin', 'value': 18.3},
             'performance': {'kpi': 'kpi_performance', 'display': 'Performance Index', 'value': 85.3},
-            'retention': {'kpi': 'customer_retention', 'display': 'Customer Retention', 'value': 94.7},
+            'retention-chart': {'kpi': 'customer_retention', 'display': 'Customer Retention', 'value': 94.7},
             'efficiency-chart': {'kpi': 'operational_efficiency', 'display': 'Efficiency Rate', 'value': 91.2},
             'summary-chart': {'kpi': 'overall_performance', 'display': 'Performance Summary', 'value': 88.7},
             
@@ -506,6 +531,66 @@ def handle_ai_insights_modal(more_details_clicks, close_click, refresh_click, in
     
     print(f"🤖 AI INFO: No matching condition, returning no_update")
     raise PreventUpdate
+
+# AI Assistant Chat Callback
+@app.callback(
+    [Output('chat-messages', 'children'),
+     Output('chat-input', 'value'),
+     Output('loading-placeholder', 'style')],
+    [Input('send-button', 'n_clicks'),
+     Input('chat-input', 'n_submit'),
+     Input('quick-revenue', 'n_clicks'),
+     Input('quick-calls', 'n_clicks'), 
+     Input('quick-satisfaction', 'n_clicks'),
+     Input('quick-profit', 'n_clicks')],
+    [State('chat-messages', 'children'),
+     State('chat-input', 'value')]
+)
+def handle_chat_message(send_clicks, input_submit, revenue_clicks, calls_clicks, 
+                       satisfaction_clicks, profit_clicks, current_messages, user_input):
+    """Handle AI assistant chat messages with simple stateless approach"""
+    from pages.ai_assistant import get_ai_response, create_message
+    
+    # Check which input triggered the callback
+    triggered_id = callback_context.triggered[0]['prop_id'].split('.')[0] if callback_context.triggered else None
+    
+    # Determine the message to process
+    if triggered_id == 'quick-revenue':
+        message_text = "What's our current revenue status and growth trends?"
+    elif triggered_id == 'quick-calls':
+        message_text = "How is our call volume performing today?"
+    elif triggered_id == 'quick-satisfaction':
+        message_text = "What's our customer satisfaction level?"
+    elif triggered_id == 'quick-profit':
+        message_text = "How are our profit margins looking?"
+    elif triggered_id in ['send-button', 'chat-input'] and user_input and user_input.strip():
+        message_text = user_input.strip()
+    else:
+        raise PreventUpdate
+    
+    try:
+        # Create user message (only show if it was typed, not for quick actions)
+        messages_to_add = []
+        if triggered_id in ['send-button', 'chat-input']:
+            messages_to_add.append(create_message("user", message_text))
+        
+        # Get AI response with conversation history
+        ai_response = get_ai_response(message_text, current_messages or [])
+        
+        # Create AI message
+        messages_to_add.append(create_message("assistant", ai_response))
+        
+        # Update messages list
+        updated_messages = (current_messages or []) + messages_to_add
+        
+        # Clear input and hide loading
+        return updated_messages, "", {"display": "none"}
+        
+    except Exception as e:
+        print(f"Chat Error: {e}")
+        error_msg = create_message("assistant", "🤖 I encountered an error. Please try again.")
+        updated_messages = (current_messages or []) + [error_msg]
+        return updated_messages, "", {"display": "none"}
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=8050)

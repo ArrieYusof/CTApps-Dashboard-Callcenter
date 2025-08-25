@@ -1,9 +1,9 @@
-# Version: 0.1
-# Last Modified: 2025-08-24
-# Changes: Initial OpenAI integration for AI-powered call center insights
+# Version: 0.2
+# Last Modified: 2025-08-25
+# Changes: Added chat response functionality for AI chat interface
 """
 OpenAI Integration Service for Call Center AI Analytics
-Handles prompt engineering and API communication for contextual insights
+Handles prompt engineering and API communication for contextual insights and chat responses
 """
 from openai import OpenAI
 import json
@@ -472,6 +472,38 @@ AI analysis service is temporarily unavailable. Current {kpi_display.lower()} va
         except Exception as e:
             raise Exception(f"OpenAI API call failed: {str(e)}")
     
+    def get_completion(self, prompt: str, max_tokens: int = 200) -> str:
+        """Simple completion method for general chat responses"""
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a friendly AI assistant specializing in Malaysian call center analytics. Be conversational, helpful, and professional."
+                    },
+                    {
+                        "role": "user", 
+                        "content": prompt
+                    }
+                ],
+                max_tokens=max_tokens,
+                temperature=0.7,  # More creative for general chat
+                top_p=0.9
+            )
+            
+            if not response.choices or len(response.choices) == 0:
+                raise Exception("OpenAI returned no response choices")
+            
+            content = response.choices[0].message.content
+            if not content:
+                raise Exception("OpenAI returned empty content")
+                
+            return content.strip()
+            
+        except Exception as e:
+            raise Exception(f"OpenAI completion failed: {str(e)}")
+    
     def _parse_insights_response(self, response: str, kpi_type: str) -> Dict[str, Any]:
         """Parse OpenAI response into structured insights"""
         sections = {
@@ -549,3 +581,6 @@ AI analysis service is temporarily unavailable. Current {kpi_display.lower()} va
             'recommendations': ['Manual analysis recommended'],
             'risks': 'Use standard operational procedures'
         })
+
+# Create alias for backward compatibility and chat interface
+OpenAIService = OpenAIInsightGenerator

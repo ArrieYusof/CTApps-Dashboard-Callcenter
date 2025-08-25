@@ -1,0 +1,2187 @@
+{
+  "metadata": {
+    "generated_at": "2025-08-25T00:00:00",
+    "data_range": "24 months (12 historical + current + 12 projections)",
+    "country": "Malaysia",
+    "currency": "RM",
+    "business_type": "Call Center Operations",
+    "data_quality": "Realistic simulation with Malaysian business patterns"
+  },
+  "current_snapshot": {
+    "date": "2025-08-25",
+    "current_kpis": {
+      "revenue_growth": {
+        "value": 1343206.0,
+        "currency": "RM",
+        "vs_target": -10.5,
+        "vs_previous_month": -2.9,
+        "seasonal_factor": "merdeka_patriotic_spending"
+      },
+      "customer_satisfaction": {
+        "value": 4.2,
+        "scale": "1-5",
+        "vs_target": -9.7,
+        "trend": "declining",
+        "seasonal_factor": "merdeka_patriotic_spending"
+      },
+      "call_volume": {
+        "value": 7784.0,
+        "unit": "calls",
+        "daily_average": 259.0,
+        "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+        "seasonal_factor": "merdeka_patriotic_spending"
+      },
+      "cost_per_call": {
+        "value": 12.44,
+        "currency": "RM",
+        "vs_industry": -12.4,
+        "efficiency_trend": "improving"
+      },
+      "first_call_resolution": {
+        "value": 80.5,
+        "unit": "percentage",
+        "vs_target": 0.5,
+        "impact_on_satisfaction": "high_correlation"
+      },
+      "customer_retention": {
+        "value": 90.0,
+        "unit": "percentage",
+        "churn_rate": 10.0,
+        "vs_industry": 5.5
+      },
+      "average_handle_time": {
+        "value": 297.0,
+        "unit": "seconds",
+        "minutes": 5.0,
+        "vs_target": -3.0,
+        "efficiency_indicator": "good"
+      },
+      "average_wait_time": {
+        "value": 45.0,
+        "unit": "seconds",
+        "vs_target": 15.0,
+        "customer_impact": "moderate"
+      },
+      "call_abandonment": {
+        "value": 8.8,
+        "unit": "percentage",
+        "vs_target": 3.8,
+        "correlation_with_wait_time": "strong_positive"
+      },
+      "profit_margin": {
+        "value": 24.3,
+        "unit": "percentage",
+        "vs_industry": 4.5,
+        "revenue_impact": 325732.0
+      }
+    },
+    "business_status": "Operational - Meeting most targets with room for improvement"
+  },
+  "historical_data": [
+    {
+      "date": "2024-08-01",
+      "month_name": "August",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1338504.0,
+          "currency": "RM",
+          "vs_target": -10.8,
+          "vs_previous_month": -4.7,
+          "seasonal_factor": "merdeka_patriotic_spending"
+        },
+        "customer_satisfaction": {
+          "value": 4.1,
+          "scale": "1-5",
+          "vs_target": -11.8,
+          "trend": "declining",
+          "seasonal_factor": "merdeka_patriotic_spending"
+        },
+        "call_volume": {
+          "value": 7757.0,
+          "unit": "calls",
+          "daily_average": 259.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "merdeka_patriotic_spending"
+        },
+        "cost_per_call": {
+          "value": 11.69,
+          "currency": "RM",
+          "vs_industry": -17.7,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 77.4,
+          "unit": "percentage",
+          "vs_target": -2.6,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 89.1,
+          "unit": "percentage",
+          "churn_rate": 10.9,
+          "vs_industry": 4.6
+        },
+        "average_handle_time": {
+          "value": 274.0,
+          "unit": "seconds",
+          "minutes": 4.6,
+          "vs_target": -26.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 53.0,
+          "unit": "seconds",
+          "vs_target": 23.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 10.9,
+          "unit": "percentage",
+          "vs_target": 5.9,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 22.7,
+          "unit": "percentage",
+          "vs_industry": 2.9,
+          "revenue_impact": 304030.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Merdeka Day preparations",
+          "Patriotic spending"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2024-09-01",
+      "month_name": "September",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1459221.0,
+          "currency": "RM",
+          "vs_target": -2.7,
+          "vs_previous_month": 4.9,
+          "seasonal_factor": "malaysia_day_boost"
+        },
+        "customer_satisfaction": {
+          "value": 4.1,
+          "scale": "1-5",
+          "vs_target": -12.0,
+          "trend": "declining",
+          "seasonal_factor": "malaysia_day_boost"
+        },
+        "call_volume": {
+          "value": 8449.0,
+          "unit": "calls",
+          "daily_average": 282.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "malaysia_day_boost"
+        },
+        "cost_per_call": {
+          "value": 11.78,
+          "currency": "RM",
+          "vs_industry": -17.1,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 77.7,
+          "unit": "percentage",
+          "vs_target": -2.3,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 89.8,
+          "unit": "percentage",
+          "churn_rate": 10.2,
+          "vs_industry": 5.3
+        },
+        "average_handle_time": {
+          "value": 296.0,
+          "unit": "seconds",
+          "minutes": 4.9,
+          "vs_target": -4.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 43.0,
+          "unit": "seconds",
+          "vs_target": 13.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 7.9,
+          "unit": "percentage",
+          "vs_target": 2.9,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 23.2,
+          "unit": "percentage",
+          "vs_industry": 3.4,
+          "revenue_impact": 337974.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Malaysia Day celebrations"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2024-10-01",
+      "month_name": "October",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1267838.0,
+          "currency": "RM",
+          "vs_target": -15.5,
+          "vs_previous_month": -0.8,
+          "seasonal_factor": "monsoon_season_dip"
+        },
+        "customer_satisfaction": {
+          "value": 4.1,
+          "scale": "1-5",
+          "vs_target": -10.5,
+          "trend": "declining",
+          "seasonal_factor": "monsoon_season_dip"
+        },
+        "call_volume": {
+          "value": 7861.0,
+          "unit": "calls",
+          "daily_average": 262.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "monsoon_season_dip"
+        },
+        "cost_per_call": {
+          "value": 11.92,
+          "currency": "RM",
+          "vs_industry": -16.0,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 78.7,
+          "unit": "percentage",
+          "vs_target": -1.3,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.1,
+          "unit": "percentage",
+          "churn_rate": 9.9,
+          "vs_industry": 5.6
+        },
+        "average_handle_time": {
+          "value": 278.0,
+          "unit": "seconds",
+          "minutes": 4.6,
+          "vs_target": -22.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 50.0,
+          "unit": "seconds",
+          "vs_target": 20.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 10.3,
+          "unit": "percentage",
+          "vs_target": 5.3,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 22.6,
+          "unit": "percentage",
+          "vs_industry": 2.8,
+          "revenue_impact": 287005.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Monsoon season begins",
+          "Reduced activity"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2024-11-01",
+      "month_name": "November",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1465650.0,
+          "currency": "RM",
+          "vs_target": -2.3,
+          "vs_previous_month": 5.4,
+          "seasonal_factor": "deepavali_festival_boost"
+        },
+        "customer_satisfaction": {
+          "value": 4.2,
+          "scale": "1-5",
+          "vs_target": -9.7,
+          "trend": "declining",
+          "seasonal_factor": "deepavali_festival_boost"
+        },
+        "call_volume": {
+          "value": 8446.0,
+          "unit": "calls",
+          "daily_average": 282.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "deepavali_festival_boost"
+        },
+        "cost_per_call": {
+          "value": 11.79,
+          "currency": "RM",
+          "vs_industry": -16.9,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 80.9,
+          "unit": "percentage",
+          "vs_target": 0.9,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 88.6,
+          "unit": "percentage",
+          "churn_rate": 11.4,
+          "vs_industry": 4.1
+        },
+        "average_handle_time": {
+          "value": 278.0,
+          "unit": "seconds",
+          "minutes": 4.6,
+          "vs_target": -22.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 49.0,
+          "unit": "seconds",
+          "vs_target": 19.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 9.1,
+          "unit": "percentage",
+          "vs_target": 4.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 23.4,
+          "unit": "percentage",
+          "vs_industry": 3.6,
+          "revenue_impact": 343053.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Deepavali celebrations",
+          "Hindu community spending"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2024-12-01",
+      "month_name": "December",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1256655.0,
+          "currency": "RM",
+          "vs_target": -16.2,
+          "vs_previous_month": -1.3,
+          "seasonal_factor": "year_end_mixed_activity"
+        },
+        "customer_satisfaction": {
+          "value": 4.5,
+          "scale": "1-5",
+          "vs_target": -3.4,
+          "trend": "improving",
+          "seasonal_factor": "year_end_mixed_activity"
+        },
+        "call_volume": {
+          "value": 7708.0,
+          "unit": "calls",
+          "daily_average": 257.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "year_end_mixed_activity"
+        },
+        "cost_per_call": {
+          "value": 12.02,
+          "currency": "RM",
+          "vs_industry": -15.3,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 78.6,
+          "unit": "percentage",
+          "vs_target": -1.4,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.4,
+          "unit": "percentage",
+          "churn_rate": 9.6,
+          "vs_industry": 5.9
+        },
+        "average_handle_time": {
+          "value": 299.0,
+          "unit": "seconds",
+          "minutes": 5.0,
+          "vs_target": -1.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 49.0,
+          "unit": "seconds",
+          "vs_target": 19.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 10.3,
+          "unit": "percentage",
+          "vs_target": 5.3,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 23.5,
+          "unit": "percentage",
+          "vs_industry": 3.7,
+          "revenue_impact": 295378.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Year-end activities",
+          "Mixed business patterns"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-01-01",
+      "month_name": "January",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1226388.0,
+          "currency": "RM",
+          "vs_target": -18.2,
+          "vs_previous_month": -5.8,
+          "seasonal_factor": "post_holiday_dip"
+        },
+        "customer_satisfaction": {
+          "value": 4.2,
+          "scale": "1-5",
+          "vs_target": -8.8,
+          "trend": "improving",
+          "seasonal_factor": "post_holiday_dip"
+        },
+        "call_volume": {
+          "value": 7054.0,
+          "unit": "calls",
+          "daily_average": 235.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "post_holiday_dip"
+        },
+        "cost_per_call": {
+          "value": 12.18,
+          "currency": "RM",
+          "vs_industry": -14.2,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 79.8,
+          "unit": "percentage",
+          "vs_target": -0.2,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 88.3,
+          "unit": "percentage",
+          "churn_rate": 11.7,
+          "vs_industry": 3.8
+        },
+        "average_handle_time": {
+          "value": 295.0,
+          "unit": "seconds",
+          "minutes": 4.9,
+          "vs_target": -5.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 47.0,
+          "unit": "seconds",
+          "vs_target": 17.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 8.1,
+          "unit": "percentage",
+          "vs_target": 3.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 23.0,
+          "unit": "percentage",
+          "vs_industry": 3.2,
+          "revenue_impact": 281776.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "New Year holidays impact"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-02-01",
+      "month_name": "February",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1353997.0,
+          "currency": "RM",
+          "vs_target": -9.7,
+          "vs_previous_month": 6.4,
+          "seasonal_factor": "chinese_new_year_surge"
+        },
+        "customer_satisfaction": {
+          "value": 4.0,
+          "scale": "1-5",
+          "vs_target": -12.8,
+          "trend": "declining",
+          "seasonal_factor": "chinese_new_year_surge"
+        },
+        "call_volume": {
+          "value": 7878.0,
+          "unit": "calls",
+          "daily_average": 263.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "chinese_new_year_surge"
+        },
+        "cost_per_call": {
+          "value": 11.94,
+          "currency": "RM",
+          "vs_industry": -15.9,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 77.4,
+          "unit": "percentage",
+          "vs_target": -2.6,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 91.2,
+          "unit": "percentage",
+          "churn_rate": 8.8,
+          "vs_industry": 6.7
+        },
+        "average_handle_time": {
+          "value": 288.0,
+          "unit": "seconds",
+          "minutes": 4.8,
+          "vs_target": -12.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 39.0,
+          "unit": "seconds",
+          "vs_target": 9.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 8.1,
+          "unit": "percentage",
+          "vs_target": 3.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 23.0,
+          "unit": "percentage",
+          "vs_industry": 3.2,
+          "revenue_impact": 311744.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Chinese New Year celebrations",
+          "Increased consumer spending"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-03-01",
+      "month_name": "March",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1400886.0,
+          "currency": "RM",
+          "vs_target": -6.6,
+          "vs_previous_month": 11.9,
+          "seasonal_factor": "post_cny_normalization"
+        },
+        "customer_satisfaction": {
+          "value": 4.4,
+          "scale": "1-5",
+          "vs_target": -4.9,
+          "trend": "improving",
+          "seasonal_factor": "post_cny_normalization"
+        },
+        "call_volume": {
+          "value": 8783.0,
+          "unit": "calls",
+          "daily_average": 293.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "post_cny_normalization"
+        },
+        "cost_per_call": {
+          "value": 12.25,
+          "currency": "RM",
+          "vs_industry": -13.7,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 77.7,
+          "unit": "percentage",
+          "vs_target": -2.3,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.7,
+          "unit": "percentage",
+          "churn_rate": 9.3,
+          "vs_industry": 6.2
+        },
+        "average_handle_time": {
+          "value": 289.0,
+          "unit": "seconds",
+          "minutes": 4.8,
+          "vs_target": -11.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 45.0,
+          "unit": "seconds",
+          "vs_target": 15.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 8.1,
+          "unit": "percentage",
+          "vs_target": 3.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 22.0,
+          "unit": "percentage",
+          "vs_industry": 2.2,
+          "revenue_impact": 308420.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Post-CNY normalization period"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-04-01",
+      "month_name": "April",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1557859.0,
+          "currency": "RM",
+          "vs_target": 3.9,
+          "vs_previous_month": 9.6,
+          "seasonal_factor": "ramadan_preparation_boost"
+        },
+        "customer_satisfaction": {
+          "value": 4.2,
+          "scale": "1-5",
+          "vs_target": -8.4,
+          "trend": "improving",
+          "seasonal_factor": "ramadan_preparation_boost"
+        },
+        "call_volume": {
+          "value": 9047.0,
+          "unit": "calls",
+          "daily_average": 302.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "ramadan_preparation_boost"
+        },
+        "cost_per_call": {
+          "value": 12.13,
+          "currency": "RM",
+          "vs_industry": -14.6,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 76.7,
+          "unit": "percentage",
+          "vs_target": -3.3,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 89.6,
+          "unit": "percentage",
+          "churn_rate": 10.4,
+          "vs_industry": 5.1
+        },
+        "average_handle_time": {
+          "value": 281.0,
+          "unit": "seconds",
+          "minutes": 4.7,
+          "vs_target": -19.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 54.0,
+          "unit": "seconds",
+          "vs_target": 24.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 8.2,
+          "unit": "percentage",
+          "vs_target": 3.2,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 24.3,
+          "unit": "percentage",
+          "vs_industry": 4.5,
+          "revenue_impact": 378059.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Ramadan preparation period"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-05-01",
+      "month_name": "May",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1260427.0,
+          "currency": "RM",
+          "vs_target": -16.0,
+          "vs_previous_month": 3.3,
+          "seasonal_factor": "ramadan_business_slowdown"
+        },
+        "customer_satisfaction": {
+          "value": 4.4,
+          "scale": "1-5",
+          "vs_target": -4.3,
+          "trend": "improving",
+          "seasonal_factor": "ramadan_business_slowdown"
+        },
+        "call_volume": {
+          "value": 8000.0,
+          "unit": "calls",
+          "daily_average": 267.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "ramadan_business_slowdown"
+        },
+        "cost_per_call": {
+          "value": 12.41,
+          "currency": "RM",
+          "vs_industry": -12.6,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 80.8,
+          "unit": "percentage",
+          "vs_target": 0.8,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 88.0,
+          "unit": "percentage",
+          "churn_rate": 12.0,
+          "vs_industry": 3.5
+        },
+        "average_handle_time": {
+          "value": 272.0,
+          "unit": "seconds",
+          "minutes": 4.5,
+          "vs_target": -28.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 51.0,
+          "unit": "seconds",
+          "vs_target": 21.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 8.1,
+          "unit": "percentage",
+          "vs_target": 3.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 22.5,
+          "unit": "percentage",
+          "vs_industry": 2.7,
+          "revenue_impact": 283854.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Ramadan fasting month",
+          "Reduced business activity"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-06-01",
+      "month_name": "June",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1950813.0,
+          "currency": "RM",
+          "vs_target": 30.1,
+          "vs_previous_month": 9.1,
+          "seasonal_factor": "raya_celebration_surge"
+        },
+        "customer_satisfaction": {
+          "value": 4.4,
+          "scale": "1-5",
+          "vs_target": -5.8,
+          "trend": "improving",
+          "seasonal_factor": "raya_celebration_surge"
+        },
+        "call_volume": {
+          "value": 11370.0,
+          "unit": "calls",
+          "daily_average": 379.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "raya_celebration_surge"
+        },
+        "cost_per_call": {
+          "value": 12.13,
+          "currency": "RM",
+          "vs_industry": -14.6,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 77.7,
+          "unit": "percentage",
+          "vs_target": -2.3,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 91.3,
+          "unit": "percentage",
+          "churn_rate": 8.7,
+          "vs_industry": 6.8
+        },
+        "average_handle_time": {
+          "value": 286.0,
+          "unit": "seconds",
+          "minutes": 4.8,
+          "vs_target": -14.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 56.0,
+          "unit": "seconds",
+          "vs_target": 26.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 10.6,
+          "unit": "percentage",
+          "vs_target": 5.6,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 25.7,
+          "unit": "percentage",
+          "vs_industry": 5.9,
+          "revenue_impact": 501488.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Hari Raya celebrations",
+          "Major spending surge"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-07-01",
+      "month_name": "July",
+      "is_projection": false,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1504944.0,
+          "currency": "RM",
+          "vs_target": 0.3,
+          "vs_previous_month": -6.0,
+          "seasonal_factor": "mid_year_corporate_budgets"
+        },
+        "customer_satisfaction": {
+          "value": 4.4,
+          "scale": "1-5",
+          "vs_target": -3.9,
+          "trend": "improving",
+          "seasonal_factor": "mid_year_corporate_budgets"
+        },
+        "call_volume": {
+          "value": 8811.0,
+          "unit": "calls",
+          "daily_average": 294.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "mid_year_corporate_budgets"
+        },
+        "cost_per_call": {
+          "value": 12.34,
+          "currency": "RM",
+          "vs_industry": -13.1,
+          "efficiency_trend": "improving"
+        },
+        "first_call_resolution": {
+          "value": 78.1,
+          "unit": "percentage",
+          "vs_target": -1.9,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 89.3,
+          "unit": "percentage",
+          "churn_rate": 10.7,
+          "vs_industry": 4.8
+        },
+        "average_handle_time": {
+          "value": 271.0,
+          "unit": "seconds",
+          "minutes": 4.5,
+          "vs_target": -29.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 44.0,
+          "unit": "seconds",
+          "vs_target": 14.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 7.9,
+          "unit": "percentage",
+          "vs_target": 2.9,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 25.7,
+          "unit": "percentage",
+          "vs_industry": 5.9,
+          "revenue_impact": 386463.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Mid-year corporate budget reviews"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    }
+  ],
+  "future_projections": [
+    {
+      "date": "2025-09-01",
+      "month_name": "September",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1540057.0,
+          "currency": "RM",
+          "vs_target": 2.7,
+          "vs_previous_month": -5.2,
+          "seasonal_factor": "malaysia_day_boost"
+        },
+        "customer_satisfaction": {
+          "value": 4.4,
+          "scale": "1-5",
+          "vs_target": -5.4,
+          "trend": "improving",
+          "seasonal_factor": "malaysia_day_boost"
+        },
+        "call_volume": {
+          "value": 8917.0,
+          "unit": "calls",
+          "daily_average": 297.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "malaysia_day_boost"
+        },
+        "cost_per_call": {
+          "value": 12.52,
+          "currency": "RM",
+          "vs_industry": -11.8,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 77.4,
+          "unit": "percentage",
+          "vs_target": -2.6,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 88.6,
+          "unit": "percentage",
+          "churn_rate": 11.4,
+          "vs_industry": 4.1
+        },
+        "average_handle_time": {
+          "value": 302.0,
+          "unit": "seconds",
+          "minutes": 5.0,
+          "vs_target": 2.0,
+          "efficiency_indicator": "needs_improvement"
+        },
+        "average_wait_time": {
+          "value": 55.0,
+          "unit": "seconds",
+          "vs_target": 25.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 10.6,
+          "unit": "percentage",
+          "vs_target": 5.6,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 24.8,
+          "unit": "percentage",
+          "vs_industry": 5.0,
+          "revenue_impact": 381941.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Malaysia Day celebrations"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-10-01",
+      "month_name": "October",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1483590.0,
+          "currency": "RM",
+          "vs_target": -1.1,
+          "vs_previous_month": -3.9,
+          "seasonal_factor": "monsoon_season_dip"
+        },
+        "customer_satisfaction": {
+          "value": 4.2,
+          "scale": "1-5",
+          "vs_target": -9.2,
+          "trend": "declining",
+          "seasonal_factor": "monsoon_season_dip"
+        },
+        "call_volume": {
+          "value": 9199.0,
+          "unit": "calls",
+          "daily_average": 307.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "monsoon_season_dip"
+        },
+        "cost_per_call": {
+          "value": 12.68,
+          "currency": "RM",
+          "vs_industry": -10.7,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 78.5,
+          "unit": "percentage",
+          "vs_target": -1.5,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.3,
+          "unit": "percentage",
+          "churn_rate": 9.7,
+          "vs_industry": 5.8
+        },
+        "average_handle_time": {
+          "value": 294.0,
+          "unit": "seconds",
+          "minutes": 4.9,
+          "vs_target": -6.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 44.0,
+          "unit": "seconds",
+          "vs_target": 14.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 9.6,
+          "unit": "percentage",
+          "vs_target": 4.6,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 25.5,
+          "unit": "percentage",
+          "vs_industry": 5.7,
+          "revenue_impact": 378726.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Monsoon season begins",
+          "Reduced activity"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-11-01",
+      "month_name": "November",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1592358.0,
+          "currency": "RM",
+          "vs_target": 6.2,
+          "vs_previous_month": 9.8,
+          "seasonal_factor": "deepavali_festival_boost"
+        },
+        "customer_satisfaction": {
+          "value": 4.0,
+          "scale": "1-5",
+          "vs_target": -12.7,
+          "trend": "declining",
+          "seasonal_factor": "deepavali_festival_boost"
+        },
+        "call_volume": {
+          "value": 9176.0,
+          "unit": "calls",
+          "daily_average": 306.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "deepavali_festival_boost"
+        },
+        "cost_per_call": {
+          "value": 12.54,
+          "currency": "RM",
+          "vs_industry": -11.7,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 80.8,
+          "unit": "percentage",
+          "vs_target": 0.8,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.5,
+          "unit": "percentage",
+          "churn_rate": 9.5,
+          "vs_industry": 6.0
+        },
+        "average_handle_time": {
+          "value": 305.0,
+          "unit": "seconds",
+          "minutes": 5.1,
+          "vs_target": 5.0,
+          "efficiency_indicator": "needs_improvement"
+        },
+        "average_wait_time": {
+          "value": 53.0,
+          "unit": "seconds",
+          "vs_target": 23.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 9.0,
+          "unit": "percentage",
+          "vs_target": 4.0,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 26.1,
+          "unit": "percentage",
+          "vs_industry": 6.3,
+          "revenue_impact": 415970.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Deepavali celebrations",
+          "Hindu community spending"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2025-12-01",
+      "month_name": "December",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1470435.0,
+          "currency": "RM",
+          "vs_target": -2.0,
+          "vs_previous_month": -4.4,
+          "seasonal_factor": "year_end_mixed_activity"
+        },
+        "customer_satisfaction": {
+          "value": 4.1,
+          "scale": "1-5",
+          "vs_target": -12.2,
+          "trend": "declining",
+          "seasonal_factor": "year_end_mixed_activity"
+        },
+        "call_volume": {
+          "value": 9020.0,
+          "unit": "calls",
+          "daily_average": 301.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "year_end_mixed_activity"
+        },
+        "cost_per_call": {
+          "value": 12.78,
+          "currency": "RM",
+          "vs_industry": -10.0,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 79.0,
+          "unit": "percentage",
+          "vs_target": -1.0,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.4,
+          "unit": "percentage",
+          "churn_rate": 9.6,
+          "vs_industry": 5.9
+        },
+        "average_handle_time": {
+          "value": 279.0,
+          "unit": "seconds",
+          "minutes": 4.6,
+          "vs_target": -21.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 48.0,
+          "unit": "seconds",
+          "vs_target": 18.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 9.1,
+          "unit": "percentage",
+          "vs_target": 4.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 22.9,
+          "unit": "percentage",
+          "vs_industry": 3.1,
+          "revenue_impact": 337181.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Year-end activities",
+          "Mixed business patterns"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-01-01",
+      "month_name": "January",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1307097.0,
+          "currency": "RM",
+          "vs_target": -12.9,
+          "vs_previous_month": 8.7,
+          "seasonal_factor": "post_holiday_dip"
+        },
+        "customer_satisfaction": {
+          "value": 4.4,
+          "scale": "1-5",
+          "vs_target": -4.8,
+          "trend": "improving",
+          "seasonal_factor": "post_holiday_dip"
+        },
+        "call_volume": {
+          "value": 7518.0,
+          "unit": "calls",
+          "daily_average": 251.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "post_holiday_dip"
+        },
+        "cost_per_call": {
+          "value": 12.94,
+          "currency": "RM",
+          "vs_industry": -8.9,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 79.3,
+          "unit": "percentage",
+          "vs_target": -0.7,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 88.8,
+          "unit": "percentage",
+          "churn_rate": 11.2,
+          "vs_industry": 4.3
+        },
+        "average_handle_time": {
+          "value": 272.0,
+          "unit": "seconds",
+          "minutes": 4.5,
+          "vs_target": -28.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 47.0,
+          "unit": "seconds",
+          "vs_target": 17.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 9.4,
+          "unit": "percentage",
+          "vs_target": 4.4,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 23.3,
+          "unit": "percentage",
+          "vs_industry": 3.5,
+          "revenue_impact": 304257.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "New Year holidays impact"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-02-01",
+      "month_name": "February",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1889631.0,
+          "currency": "RM",
+          "vs_target": 26.0,
+          "vs_previous_month": -4.9,
+          "seasonal_factor": "chinese_new_year_surge"
+        },
+        "customer_satisfaction": {
+          "value": 4.2,
+          "scale": "1-5",
+          "vs_target": -9.6,
+          "trend": "declining",
+          "seasonal_factor": "chinese_new_year_surge"
+        },
+        "call_volume": {
+          "value": 10995.0,
+          "unit": "calls",
+          "daily_average": 366.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "chinese_new_year_surge"
+        },
+        "cost_per_call": {
+          "value": 12.68,
+          "currency": "RM",
+          "vs_industry": -10.7,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 79.9,
+          "unit": "percentage",
+          "vs_target": -0.1,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 91.4,
+          "unit": "percentage",
+          "churn_rate": 8.6,
+          "vs_industry": 6.9
+        },
+        "average_handle_time": {
+          "value": 304.0,
+          "unit": "seconds",
+          "minutes": 5.1,
+          "vs_target": 4.0,
+          "efficiency_indicator": "needs_improvement"
+        },
+        "average_wait_time": {
+          "value": 57.0,
+          "unit": "seconds",
+          "vs_target": 27.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 9.1,
+          "unit": "percentage",
+          "vs_target": 4.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 25.4,
+          "unit": "percentage",
+          "vs_industry": 5.6,
+          "revenue_impact": 479730.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Chinese New Year celebrations",
+          "Increased consumer spending"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-03-01",
+      "month_name": "March",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1456633.0,
+          "currency": "RM",
+          "vs_target": -2.9,
+          "vs_previous_month": 10.2,
+          "seasonal_factor": "post_cny_normalization"
+        },
+        "customer_satisfaction": {
+          "value": 4.4,
+          "scale": "1-5",
+          "vs_target": -5.2,
+          "trend": "improving",
+          "seasonal_factor": "post_cny_normalization"
+        },
+        "call_volume": {
+          "value": 9132.0,
+          "unit": "calls",
+          "daily_average": 304.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "post_cny_normalization"
+        },
+        "cost_per_call": {
+          "value": 13.0,
+          "currency": "RM",
+          "vs_industry": -8.4,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 78.1,
+          "unit": "percentage",
+          "vs_target": -1.9,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.4,
+          "unit": "percentage",
+          "churn_rate": 9.6,
+          "vs_industry": 5.9
+        },
+        "average_handle_time": {
+          "value": 304.0,
+          "unit": "seconds",
+          "minutes": 5.1,
+          "vs_target": 4.0,
+          "efficiency_indicator": "needs_improvement"
+        },
+        "average_wait_time": {
+          "value": 44.0,
+          "unit": "seconds",
+          "vs_target": 14.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 7.4,
+          "unit": "percentage",
+          "vs_target": 2.4,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 22.2,
+          "unit": "percentage",
+          "vs_industry": 2.4,
+          "revenue_impact": 323867.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Post-CNY normalization period"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-04-01",
+      "month_name": "April",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1841299.0,
+          "currency": "RM",
+          "vs_target": 22.8,
+          "vs_previous_month": -1.9,
+          "seasonal_factor": "ramadan_preparation_boost"
+        },
+        "customer_satisfaction": {
+          "value": 4.1,
+          "scale": "1-5",
+          "vs_target": -10.9,
+          "trend": "declining",
+          "seasonal_factor": "ramadan_preparation_boost"
+        },
+        "call_volume": {
+          "value": 10693.0,
+          "unit": "calls",
+          "daily_average": 356.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "ramadan_preparation_boost"
+        },
+        "cost_per_call": {
+          "value": 12.87,
+          "currency": "RM",
+          "vs_industry": -9.4,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 78.4,
+          "unit": "percentage",
+          "vs_target": -1.6,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.4,
+          "unit": "percentage",
+          "churn_rate": 9.6,
+          "vs_industry": 5.9
+        },
+        "average_handle_time": {
+          "value": 277.0,
+          "unit": "seconds",
+          "minutes": 4.6,
+          "vs_target": -23.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 49.0,
+          "unit": "seconds",
+          "vs_target": 19.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 8.2,
+          "unit": "percentage",
+          "vs_target": 3.2,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 25.9,
+          "unit": "percentage",
+          "vs_industry": 6.1,
+          "revenue_impact": 476236.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Ramadan preparation period"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-05-01",
+      "month_name": "May",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1494919.0,
+          "currency": "RM",
+          "vs_target": -0.3,
+          "vs_previous_month": 11.1,
+          "seasonal_factor": "ramadan_business_slowdown"
+        },
+        "customer_satisfaction": {
+          "value": 4.2,
+          "scale": "1-5",
+          "vs_target": -9.3,
+          "trend": "declining",
+          "seasonal_factor": "ramadan_business_slowdown"
+        },
+        "call_volume": {
+          "value": 9489.0,
+          "unit": "calls",
+          "daily_average": 316.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "ramadan_business_slowdown"
+        },
+        "cost_per_call": {
+          "value": 13.17,
+          "currency": "RM",
+          "vs_industry": -7.3,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 79.9,
+          "unit": "percentage",
+          "vs_target": -0.1,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 90.7,
+          "unit": "percentage",
+          "churn_rate": 9.3,
+          "vs_industry": 6.2
+        },
+        "average_handle_time": {
+          "value": 277.0,
+          "unit": "seconds",
+          "minutes": 4.6,
+          "vs_target": -23.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 57.0,
+          "unit": "seconds",
+          "vs_target": 27.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 9.3,
+          "unit": "percentage",
+          "vs_target": 4.3,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 25.0,
+          "unit": "percentage",
+          "vs_industry": 5.2,
+          "revenue_impact": 374165.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Ramadan fasting month",
+          "Reduced business activity"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-06-01",
+      "month_name": "June",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1795951.0,
+          "currency": "RM",
+          "vs_target": 19.7,
+          "vs_previous_month": -6.1,
+          "seasonal_factor": "raya_celebration_surge"
+        },
+        "customer_satisfaction": {
+          "value": 4.1,
+          "scale": "1-5",
+          "vs_target": -11.6,
+          "trend": "declining",
+          "seasonal_factor": "raya_celebration_surge"
+        },
+        "call_volume": {
+          "value": 10468.0,
+          "unit": "calls",
+          "daily_average": 349.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "raya_celebration_surge"
+        },
+        "cost_per_call": {
+          "value": 12.86,
+          "currency": "RM",
+          "vs_industry": -9.4,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 79.6,
+          "unit": "percentage",
+          "vs_target": -0.4,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 91.3,
+          "unit": "percentage",
+          "churn_rate": 8.7,
+          "vs_industry": 6.8
+        },
+        "average_handle_time": {
+          "value": 270.0,
+          "unit": "seconds",
+          "minutes": 4.5,
+          "vs_target": -30.0,
+          "efficiency_indicator": "good"
+        },
+        "average_wait_time": {
+          "value": 47.0,
+          "unit": "seconds",
+          "vs_target": 17.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 8.1,
+          "unit": "percentage",
+          "vs_target": 3.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 26.4,
+          "unit": "percentage",
+          "vs_industry": 6.6,
+          "revenue_impact": 474874.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Hari Raya celebrations",
+          "Major spending surge"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-07-01",
+      "month_name": "July",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 2144355.0,
+          "currency": "RM",
+          "vs_target": 43.0,
+          "vs_previous_month": 0.1,
+          "seasonal_factor": "mid_year_corporate_budgets"
+        },
+        "customer_satisfaction": {
+          "value": 4.2,
+          "scale": "1-5",
+          "vs_target": -9.1,
+          "trend": "improving",
+          "seasonal_factor": "mid_year_corporate_budgets"
+        },
+        "call_volume": {
+          "value": 12554.0,
+          "unit": "calls",
+          "daily_average": 418.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "mid_year_corporate_budgets"
+        },
+        "cost_per_call": {
+          "value": 13.08,
+          "currency": "RM",
+          "vs_industry": -7.9,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 79.6,
+          "unit": "percentage",
+          "vs_target": -0.4,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 91.0,
+          "unit": "percentage",
+          "churn_rate": 9.0,
+          "vs_industry": 6.5
+        },
+        "average_handle_time": {
+          "value": 303.0,
+          "unit": "seconds",
+          "minutes": 5.0,
+          "vs_target": 3.0,
+          "efficiency_indicator": "needs_improvement"
+        },
+        "average_wait_time": {
+          "value": 55.0,
+          "unit": "seconds",
+          "vs_target": 25.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 11.2,
+          "unit": "percentage",
+          "vs_target": 6.2,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 26.2,
+          "unit": "percentage",
+          "vs_industry": 6.4,
+          "revenue_impact": 561512.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Mid-year corporate budget reviews"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    },
+    {
+      "date": "2026-08-01",
+      "month_name": "August",
+      "is_projection": true,
+      "kpis": {
+        "revenue_growth": {
+          "value": 1835044.0,
+          "currency": "RM",
+          "vs_target": 22.3,
+          "vs_previous_month": -1.0,
+          "seasonal_factor": "merdeka_patriotic_spending"
+        },
+        "customer_satisfaction": {
+          "value": 4.5,
+          "scale": "1-5",
+          "vs_target": -2.5,
+          "trend": "improving",
+          "seasonal_factor": "merdeka_patriotic_spending"
+        },
+        "call_volume": {
+          "value": 10635.0,
+          "unit": "calls",
+          "daily_average": 354.0,
+          "peak_hours": "9AM-11AM, 2PM-4PM MYT",
+          "seasonal_factor": "merdeka_patriotic_spending"
+        },
+        "cost_per_call": {
+          "value": 13.18,
+          "currency": "RM",
+          "vs_industry": -7.2,
+          "efficiency_trend": "declining"
+        },
+        "first_call_resolution": {
+          "value": 78.9,
+          "unit": "percentage",
+          "vs_target": -1.1,
+          "impact_on_satisfaction": "high_correlation"
+        },
+        "customer_retention": {
+          "value": 88.5,
+          "unit": "percentage",
+          "churn_rate": 11.5,
+          "vs_industry": 4.0
+        },
+        "average_handle_time": {
+          "value": 303.0,
+          "unit": "seconds",
+          "minutes": 5.0,
+          "vs_target": 3.0,
+          "efficiency_indicator": "needs_improvement"
+        },
+        "average_wait_time": {
+          "value": 53.0,
+          "unit": "seconds",
+          "vs_target": 23.0,
+          "customer_impact": "moderate"
+        },
+        "call_abandonment": {
+          "value": 11.1,
+          "unit": "percentage",
+          "vs_target": 6.1,
+          "correlation_with_wait_time": "strong_positive"
+        },
+        "profit_margin": {
+          "value": 25.0,
+          "unit": "percentage",
+          "vs_industry": 5.2,
+          "revenue_impact": 458162.0
+        }
+      },
+      "business_context": {
+        "malaysian_events": [
+          "Merdeka Day preparations",
+          "Patriotic spending"
+        ],
+        "economic_factors": {
+          "currency": "RM (Ringgit Malaysia)",
+          "business_hours": "9AM-6PM MYT",
+          "market_maturity": "Developing digital services sector",
+          "regulatory_environment": "Bank Negara Malaysia oversight",
+          "economic_outlook": "Stable growth with digital transformation focus"
+        },
+        "competitive_landscape": "Moderate competition, stable market share"
+      }
+    }
+  ],
+  "competitor_benchmarks": {
+    "industry_average": {
+      "revenue_per_month": 1200000,
+      "customer_satisfaction": 3.8,
+      "call_volume": 7200,
+      "cost_per_call": 14.2,
+      "first_call_resolution": 72.0,
+      "customer_retention": 84.5,
+      "average_handle_time": 320,
+      "average_wait_time": 55,
+      "call_abandonment": 8.5,
+      "profit_margin": 19.8
+    },
+    "top_performer": {
+      "revenue_per_month": 1800000,
+      "customer_satisfaction": 4.6,
+      "call_volume": 12000,
+      "cost_per_call": 10.8,
+      "first_call_resolution": 85.0,
+      "customer_retention": 92.5,
+      "average_handle_time": 245,
+      "average_wait_time": 35,
+      "call_abandonment": 4.2,
+      "profit_margin": 28.5
+    },
+    "market_leader": {
+      "company": "TM Contact Center",
+      "revenue_per_month": 2500000,
+      "customer_satisfaction": 4.8,
+      "market_share": 25.5
+    }
+  },
+  "trend_analysis": {
+    "revenue_trend": {
+      "direction": "declining",
+      "6_month_change": -4.1,
+      "average_monthly_revenue": 1503022.0
+    },
+    "satisfaction_trend": {
+      "direction": "declining",
+      "6_month_change": -0.2,
+      "average_satisfaction": 4.33
+    },
+    "business_momentum": "mixed",
+    "key_insights": [
+      "Revenue has been declining over the last 6 months",
+      "Customer satisfaction is declining",
+      "Seasonal patterns strongly influence performance",
+      "Malaysian festivals create significant business opportunities"
+    ]
+  },
+  "malaysian_business_calendar": {
+    "Q1": [
+      "Chinese New Year (Jan/Feb)",
+      "Post-holiday recovery",
+      "Ramadan preparation"
+    ],
+    "Q2": [
+      "Ramadan period",
+      "Hari Raya celebrations",
+      "Mid-year corporate budgets"
+    ],
+    "Q3": [
+      "Merdeka Day (Aug 31)",
+      "Malaysia Day (Sep 16)",
+      "Corporate Q3 reviews"
+    ],
+    "Q4": [
+      "Deepavali celebrations",
+      "Year-end planning",
+      "Monsoon season impact"
+    ]
+  }
+}

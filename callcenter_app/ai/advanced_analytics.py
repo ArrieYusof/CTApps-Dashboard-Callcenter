@@ -60,21 +60,49 @@ class AdvancedAnalyticsEngine:
         historical_trends = kpi_data.get('historical_trends', [])
         current_value = kpi_data.get('current_value', 0)
         
+        # Convert current_value to numeric if it's a string
+        if isinstance(current_value, str):
+            try:
+                if current_value == 'current' or not current_value:
+                    # Use the latest historical value if available
+                    if historical_trends:
+                        current_value = historical_trends[-1]
+                    else:
+                        return {'anomaly_detected': False, 'reason': 'No current value available'}
+                else:
+                    current_value = float(current_value)
+            except (ValueError, TypeError):
+                return {'anomaly_detected': False, 'reason': 'Invalid current value format'}
+        
         if len(historical_trends) < 5:
             return {'anomaly_detected': False, 'reason': 'Insufficient historical data'}
+
+        # Filter out non-numeric values from historical trends
+        numeric_trends = []
+        for val in historical_trends:
+            try:
+                if isinstance(val, (int, float)):
+                    numeric_trends.append(float(val))
+                elif isinstance(val, str) and val.replace('.', '').replace('-', '').isdigit():
+                    numeric_trends.append(float(val))
+            except (ValueError, TypeError):
+                continue
         
+        if len(numeric_trends) < 5:
+            return {'anomaly_detected': False, 'reason': 'Insufficient numeric historical data'}
+
         # Convert to numpy array for calculations
-        data = np.array(historical_trends)
+        data = np.array(numeric_trends)
         mean_val = np.mean(data)
         std_val = np.std(data)
         
         # Calculate Z-score for current value
         if std_val > 0:
-            z_score = abs((current_value - mean_val) / std_val)
+            z_score = abs((float(current_value) - mean_val) / std_val)
             is_anomaly = z_score > self.anomaly_threshold
             
             # Determine anomaly type
-            anomaly_type = 'positive' if current_value > mean_val else 'negative'
+            anomaly_type = 'positive' if float(current_value) > mean_val else 'negative'
             
             return {
                 'anomaly_detected': is_anomaly,
@@ -82,7 +110,7 @@ class AdvancedAnalyticsEngine:
                 'anomaly_type': anomaly_type,
                 'severity': self._get_anomaly_severity(z_score),
                 'mean_baseline': round(mean_val, 2),
-                'deviation_percent': round(((current_value - mean_val) / mean_val) * 100, 1)
+                'deviation_percent': round(((float(current_value) - mean_val) / mean_val) * 100, 1)
             }
         
         return {'anomaly_detected': False, 'reason': 'No variance in historical data'}
@@ -277,6 +305,17 @@ class AdvancedAnalyticsEngine:
         current_value = kpi_data.get('current_value', 0)
         comparative_metrics = kpi_data.get('comparative_metrics', {})
         
+        # Convert current_value to numeric if it's a string
+        if isinstance(current_value, str):
+            try:
+                if current_value == 'current' or not current_value:
+                    # Use a default impact score if no numeric value available
+                    return 50.0  # Neutral baseline
+                else:
+                    current_value = float(current_value)
+            except (ValueError, TypeError):
+                return 50.0  # Neutral baseline for invalid values
+        
         # Base score calculation
         score = 50  # Neutral baseline
         
@@ -284,7 +323,7 @@ class AdvancedAnalyticsEngine:
         if 'target' in comparative_metrics:
             target = comparative_metrics['target']
             if target > 0:
-                deviation = abs((current_value - target) / target) * 100
+                deviation = abs((float(current_value) - target) / target) * 100
                 if deviation > impact_mapping.get('high_impact_threshold', 15):
                     score += 30
                 elif deviation > 10:
