@@ -662,6 +662,23 @@ def handle_chat_message(send_clicks, input_submit, revenue_clicks, calls_clicks,
         updated_messages = (current_messages or []) + [error_msg]
         return updated_messages, "", {"display": "none"}
 
+# Auto-scroll callback for chat messages
+app.clientside_callback(
+    """
+    function(messages) {
+        setTimeout(function() {
+            var chatContainer = document.getElementById('chat-messages');
+            if (chatContainer) {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        }, 100);
+        return window.dash_clientside.no_update;
+    }
+    """,
+    Output('loading-placeholder', 'id'),  # Dummy output
+    [Input('chat-messages', 'children')]
+)
+
 if __name__ == "__main__":
     # Get configuration from environment variables
     debug_mode = os.getenv('DASH_DEBUG', 'True').lower() == 'true'

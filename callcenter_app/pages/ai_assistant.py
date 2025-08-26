@@ -69,10 +69,10 @@ def ai_assistant_layout():
         html.Div([
             html.H6("Quick Questions:", className="mb-2", style={"color": "var(--text-secondary)"}),
             html.Div([
-                dbc.Button("📊 Revenue Status", id="quick-revenue", size="sm", outline=True, className="me-2 mb-2"),
-                dbc.Button("📞 Call Volume", id="quick-calls", size="sm", outline=True, className="me-2 mb-2"),
-                dbc.Button("😊 Customer Satisfaction", id="quick-satisfaction", size="sm", outline=True, className="me-2 mb-2"),
-                dbc.Button("💰 Profit Analysis", id="quick-profit", size="sm", outline=True, className="me-2 mb-2"),
+                dbc.Button("📊 Revenue Status", id="quick-revenue", size="sm", className="me-2 mb-2"),
+                dbc.Button("📞 Call Volume", id="quick-calls", size="sm", className="me-2 mb-2"),
+                dbc.Button("😊 Customer Satisfaction", id="quick-satisfaction", size="sm", className="me-2 mb-2"),
+                dbc.Button("💰 Profit Analysis", id="quick-profit", size="sm", className="me-2 mb-2"),
             ], className="mb-3")
         ], className="ai-quick-actions-fixed"),
         
