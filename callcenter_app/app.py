@@ -663,4 +663,9 @@ def handle_chat_message(send_clicks, input_submit, revenue_clicks, calls_clicks,
         return updated_messages, "", {"display": "none"}
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=8050)
+    # Get configuration from environment variables
+    debug_mode = os.getenv('DASH_DEBUG', 'True').lower() == 'true'
+    host = os.getenv('DASH_HOST', '0.0.0.0')
+    port = int(os.getenv('DASH_PORT', '8050'))
+    
+    app.run(debug=debug_mode, host=host, port=port)
